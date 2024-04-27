@@ -1,0 +1,30 @@
+
+import Button from '../../components/Button'
+import { FiGrid, FiRotateCw, FiSettings } from 'react-icons/fi'
+
+const Actions = () => {
+    return (
+        <div className='w-80 flex justify-end space-x-3'>
+            <div className='w-full flex space-x-3 items-center'>
+                <Button variant="darker" size="icon1">
+                    <FiRotateCw className="text-xl" />
+                </Button>
+                <Button variant="darker" size="icon1">
+                    <FiSettings className="text-xl" />
+                </Button>
+            </div>
+            <div className='flex space-x-2'>
+                <Button variant="darker" size="icon1">
+                    <FiGrid className="text-xl" />
+                </Button>
+
+                <div className='h-10 md:h-12 w-10 md:w-12 rounded-full cursor-pointer'>
+                    <img src="/images/profile/ibidapo-ayomide.jpg" className='w-full h-full rounded-full' />
+                </div>
+
+            </div>
+        </div>
+    )
+}
+
+export default Actions
