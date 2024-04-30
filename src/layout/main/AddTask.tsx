@@ -1,9 +1,9 @@
 import { useContext, useEffect, useState } from "react";
-import HoverStyle from "../../utils/HoverStyle";
-import { IconsStyles1, IconsStyles3 } from "../../utils/Icons";
 import { GoogleKeepCloneContext } from "../../context/GoogleKeepCloneContext";
-import IconGroup from "../../components/IconGroup";
 import { useBodyClick } from "../../hooks/useBodyClick";
+import Button from "../../components/Button";
+import { BrushIcon, CheckSquare2, Image, PinIcon, Redo2, Undo2, } from "lucide-react";
+import IconButtons from "../../components/IconButtons";
 
 
 const AddTask = () => {
@@ -37,6 +37,7 @@ const AddTask = () => {
         selected: false,
         archive: false
       })
+      console.log(task)
     }
   }, [showEditor])
 
@@ -45,50 +46,59 @@ const AddTask = () => {
   }
 
   return (
-    <div className="w-full justify-center items-center my-[120px] flex flex-col space-y-3 h-12 px-3">
-      <div className="w-full md:w-[45%] shadow-gray-300 shadow-md rounded-md h-auto px-4 flex flex-row justify-between" id="add-task" onClick={showEditorHandler}>
-        <div className="space-y-5 w-full">
-          {showEditor && (
-            <div className="w-full flex flex-row">
-              <div className="w-full">
+    <div className="w-full flex flex-col my-10 space-y-3 px-3 shrink-0">
+      <div className="w-full shadow-secondary-border shadow-md rounded-md h-auto px-4 flex flex-row justify-between" id="add-task">
+        {showEditor ? (
+          <div className="w-full space-y-4 py-2" >
+            <div className="w-full grid grid-cols-[1fr,50px] gap-4 items-center">
+              <div>
                 <input className="border-none outline-none w-full text-gray-500 placeholder:text-gray-500 placeholder:font-normal text-xl" placeholder="Title" value={tasks.title} name="title" onChange={(e) => handleTitleChange(e)} />
               </div>
               <div>
-                <HoverStyle height="h-12" width="w-12" focussed={task.pinned ? true : false}>
-                  <button onClick={() => setTask({ ...task, pinned: !task.pinned })}>{IconsStyles3.icon}</button>
-                </HoverStyle>
+                <Button variant="ghost" size="icon2" className={`${task.pinned && "bg-gray-200"}`} onClick={() => setTask({ ...task, pinned: !task.pinned })}><PinIcon className="w-5" /> </Button>
               </div>
             </div>
-          )}
-          <div className="w-full  flex flex-row justify-between items-center">
-            <div className={` ${showEditor ? "w-full" : "w-[45%]"}`}>
-              {!showEditor && (
-                <input className="focus:border-none focus:outline-none py-2  border-none resize-none outline-none w-full placeholder:text-gray-500 placeholder:font-normal text-xl" placeholder="Take a note..." onFocus={()=> setShowEditor(true)} />
-              )}
-            {showEditor && (
-                <textarea className="border-none resize-none outline-none w-full placeholder:text-gray-500 placeholder:font-normal text-xl" placeholder="Take a note..." value={task.note} onChange={(e) => handleNoteChange(e)} />
-            )}
-              {showEditor && (
-                <div className="w-full flex flex-row space-x-1 mb-2 transition">
-                  <IconGroup />
-                </div>
-              )}
+            <div className="w-full">
+              <textarea className="border-none resize-none overflow-hidden outline-none w-full placeholder:text-gray-500 placeholder:font-normal text-xl" placeholder="Take a note..." value={task.note} onChange={(e) => handleNoteChange(e)} />
             </div>
-            {!showEditor && (
-              <div className={`flex flex-row ${showEditor ? "w-0" : "w-[30%]"}`}>
-                <>
-                  {IconsStyles1.map((icon, index) => (
-                    <div key={index}>
-                      <HoverStyle height="h-12" width="w-12">
-                        {icon.icon}
-                      </HoverStyle>
-                    </div>
-                  ))}
-                </>
+
+            <div className="w-full flex justify-between items-center">
+              <div className="flex space-x-3 items-center">
+                <IconButtons />
+                <Button variant="ghost" size="icon3" disabled={true} className="disabled:opacity-50 disabled:cursor-not-allowed">
+                  <Undo2 className="w-4" />
+                </Button>
+                <Button variant="ghost" size="icon3" disabled={true} className="disabled:opacity-50 disabled:cursor-not-allowed">
+                  <Redo2 className="w-4" />
+                </Button>
               </div>
-            )}
+              <div>
+                <Button className="px-5 py-2" variant="ghost" onClick={() => {
+                  setShowEditor(false)
+                }}>
+                  <p className="font-semibold tracking-wide text-lg">Close</p>
+                </Button>
+              </div>
+            </div>
           </div>
-        </div>
+        ) : (
+          <div className="w-full grid grid-cols-[1fr,auto] gap-4 items-center">
+            <input className="focus:border-none focus:outline-none py-2 border-none resize-none outline-none w-full placeholder:text-gray-500 placeholder:font-normal text-xl" placeholder="Take a note..." onClick={showEditorHandler} onFocus={() => setShowEditor(true)} />
+
+            <div className="flex items-center gap-4">
+              <Button variant="darker" size="icon2">
+                <CheckSquare2 />
+              </Button>
+              <Button variant="darker" size="icon2">
+                <BrushIcon />
+              </Button>
+              <Button variant="darker" size="icon2">
+                <Image />
+              </Button>
+            </div>
+
+          </div>
+        )}
       </div>
     </div>
   )

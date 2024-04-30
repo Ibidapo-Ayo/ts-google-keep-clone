@@ -14,7 +14,7 @@ const SearchBar = () => {
         <div className={`w-4/5 flex items-center space-x-4 px-4 py-1 rounded-md ${`transition-color ${!bg ? " bg-gray-100" : "bg-white border border-gray-300 shadow-lg"}`}`}>
           <div>
             <Button variant="ghost" size="icon2">
-              <FiSearch className="text-2xl" />
+              <FiSearch className="text-xl" />
             </Button>
           </div>
           <div className="w-full" onClick={() => setBg(true)}>
@@ -23,7 +23,7 @@ const SearchBar = () => {
           {bg && (
             <div>
              <Button variant="ghost" size="icon2" onClick={()=> setBg(false)}>
-             <FiX className="text-2xl" />
+             <FiX className="text-xl" />
              </Button>
             </div>
           )}
@@ -40,14 +40,14 @@ const SearchBar = () => {
           <div className="absolute items-center bg-white flex w-[220px] left-2 top-1 px-2 rounded-md shadow-md space-x-2 ">
             <div>
               <Button variant="ghost" size="icon2">
-                <FiArrowLeft className="text-2xl" onClick={() => setMobileSearch(false)} />
+                <FiArrowLeft className="text-xl" onClick={() => setMobileSearch(false)} />
               </Button>
             </div>
             <input type="text" className="w-full bg-transparent py-2 focus:border-none focus:outline-none" placeholder="Search" />
             <div>
               <Button variant="ghost" size="icon2">
 
-                <FiX className="text-2xl" />
+                <FiX className="text-xl" />
               </Button>
             </div>
           </div>

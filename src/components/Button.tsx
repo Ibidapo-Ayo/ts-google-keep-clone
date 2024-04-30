@@ -35,6 +35,15 @@ export const buttonStyles = cva(["transition-colors"], {
                 "justify-center",
                 "p-2.5",
             ],
+            icon3: [
+                "rounded-full",
+                "w-10",
+                "h-10",
+                "flex",
+                "items-center",
+                "justify-center",
+                "p-2",
+            ],
         },
     },
     defaultVariants: {
