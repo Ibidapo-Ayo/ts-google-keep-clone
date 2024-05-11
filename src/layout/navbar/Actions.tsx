@@ -5,16 +5,19 @@ import { FiGrid, FiRotateCw, FiSettings } from 'react-icons/fi'
 const Actions = () => {
     return (
         <div className='w-80 flex justify-end space-x-3'>
-            <div className='w-full flex space-x-3 items-center'>
-                <Button variant="darker" size="icon1">
+            <div className='w-full flex items-center'>
+                <Button variant="darker" size="icon2">
                     <FiRotateCw className="text-xl" />
                 </Button>
-                <Button variant="darker" size="icon1">
+                <Button variant="darker" size="icon2">
+                    <FiGrid className="text-xl" />
+                </Button>
+                <Button variant="darker" size="icon2">
                     <FiSettings className="text-xl" />
                 </Button>
             </div>
             <div className='flex space-x-2'>
-                <Button variant="darker" size="icon1">
+                <Button variant="darker" size="icon2">
                     <FiGrid className="text-xl" />
                 </Button>
 

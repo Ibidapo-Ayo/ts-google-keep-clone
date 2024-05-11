@@ -9,7 +9,7 @@ import IconButtons from "../../components/IconButtons";
 const AddTask = () => {
   const [showEditor, setShowEditor] = useState<boolean>(false)
 
-  const { tasks, setTasks, setShowTasks } = useContext(GoogleKeepCloneContext)
+  const { tasks, setTasks, setShowTasks, setPinnedTasks } = useContext(GoogleKeepCloneContext)
 
   const [task, setTask] = [tasks, setTasks]
 
@@ -26,7 +26,12 @@ const AddTask = () => {
 
   useEffect(() => {
     if (!showEditor && task.title) {
-      setShowTasks((prev) => [...prev, task])
+
+      if (task.pinned) {
+        setPinnedTasks((prev) => [...prev, task])
+      } else {
+        setShowTasks((prev) => [...prev, task])
+      }
       setTask({
         id: 0,
         title: "",
@@ -37,7 +42,6 @@ const AddTask = () => {
         selected: false,
         archive: false
       })
-      console.log(task)
     }
   }, [showEditor])
 
@@ -50,13 +54,13 @@ const AddTask = () => {
       <div className="w-full shadow-secondary-border shadow-md rounded-md h-auto px-4 flex flex-row justify-between" id="add-task">
         {showEditor ? (
           <div className="w-full space-y-4 py-2" >
-            <div className="w-full grid grid-cols-[1fr,50px] gap-4 items-center">
+            <div className="w-full grid grid-cols-[1fr,50px] gap-4">
               <div>
                 <input className="border-none outline-none w-full text-gray-500 placeholder:text-gray-500 placeholder:font-normal text-xl" placeholder="Title" value={tasks.title} name="title" onChange={(e) => handleTitleChange(e)} />
               </div>
               <div>
                 <Button variant="ghost" size="icon2" className={`${task.pinned && "bg-gray-200"}`} onClick={() => setTask({ ...task, pinned: !task.pinned })}><PinIcon className="w-5" /> </Button>
-              </div>
+              </div>    
             </div>
             <div className="w-full">
               <textarea className="border-none resize-none overflow-hidden outline-none w-full placeholder:text-gray-500 placeholder:font-normal text-xl" placeholder="Take a note..." value={task.note} onChange={(e) => handleNoteChange(e)} />
@@ -76,7 +80,7 @@ const AddTask = () => {
                 <Button className="px-5 py-2" variant="ghost" onClick={() => {
                   setShowEditor(false)
                 }}>
-                  <p className="font-semibold tracking-wide text-lg">Close</p>
+                  <p className="font-medium tracking-wide text-lg">Close</p>
                 </Button>
               </div>
             </div>

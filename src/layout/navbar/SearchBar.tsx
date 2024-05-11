@@ -2,6 +2,7 @@ import { FiArrowLeft, FiSearch, FiX } from "react-icons/fi"
 import { useState } from "react"
 import { useBodyClick } from "../../hooks/useBodyClick"
 import Button from "../../components/Button"
+import Input from "../../components/Input"
 
 const SearchBar = () => {
   const [bg, setBg] = useState<boolean>(false)
@@ -18,13 +19,13 @@ const SearchBar = () => {
             </Button>
           </div>
           <div className="w-full" onClick={() => setBg(true)}>
-            <input type="text" className="w-full bg-transparent py-2 focus:border-none focus:outline-none" placeholder="Search" />
+            <Input type="text" placeholder="Search" variant="ghost" size="searchInput" />
           </div>
           {bg && (
             <div>
-             <Button variant="ghost" size="icon2" onClick={()=> setBg(false)}>
-             <FiX className="text-xl" />
-             </Button>
+              <Button variant="ghost" size="icon2" onClick={() => setBg(false)}>
+                <FiX className="text-xl" />
+              </Button>
             </div>
           )}
         </div>
@@ -43,10 +44,9 @@ const SearchBar = () => {
                 <FiArrowLeft className="text-xl" onClick={() => setMobileSearch(false)} />
               </Button>
             </div>
-            <input type="text" className="w-full bg-transparent py-2 focus:border-none focus:outline-none" placeholder="Search" />
+            <Input type="text" placeholder="Search" variant="ghost" size="searchInput" />
             <div>
-              <Button variant="ghost" size="icon2">
-
+              <Button variant="ghost" size="icon2" onClick={()=> setMobileSearch(false)}>
                 <FiX className="text-xl" />
               </Button>
             </div>
