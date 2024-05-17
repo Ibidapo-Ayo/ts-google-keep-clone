@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import { useContext, useState } from 'react'
 import { BiArchiveIn } from 'react-icons/bi'
 import { FaRegLightbulb } from 'react-icons/fa'
 import { FiBell, FiEdit2, FiHexagon, FiTrash2 } from 'react-icons/fi'
