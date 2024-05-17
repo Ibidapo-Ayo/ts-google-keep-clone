@@ -1,7 +1,7 @@
 import { createContext, useState } from "react";
 import { AddNoteProps } from "../props/AddTasksProps";
 
- type GoogleKeepCloneContextProps = {
+type GoogleKeepCloneContextProps = {
     children: React.ReactNode
 }
 
@@ -11,15 +11,16 @@ type contextProps = {
     showTasks: AddNoteProps[],
     setShowTasks: React.Dispatch<React.SetStateAction<AddNoteProps[]>>
     pinnedTasks: AddNoteProps[],
-    setPinnedTasks:React.Dispatch<React.SetStateAction<AddNoteProps[]>>,
+    setPinnedTasks: React.Dispatch<React.SetStateAction<AddNoteProps[]>>,
     expanded: boolean,
-    setExpanded: React.Dispatch<React.SetStateAction<boolean>>
+    setExpanded: React.Dispatch<React.SetStateAction<boolean>>,
+    lists: [boolean, React.Dispatch<React.SetStateAction<boolean>>]
 }
 const notesProps = {
-    id:0,
+    id: 0,
     title: "",
     note: "",
-    pinned:false,
+    pinned: false,
     collaborator: [""],
     image: "",
     selected: false,
@@ -30,19 +31,20 @@ export const GoogleKeepCloneContext = createContext<contextProps>({
     tasks: notesProps,
     setTasks: () => { },
     showTasks: [],
-    setShowTasks: ()=> [],
+    setShowTasks: () => [],
     pinnedTasks: [],
-    setPinnedTasks: ()=> [],
+    setPinnedTasks: () => [],
     expanded: true,
-    setExpanded: ()=> true
+    setExpanded: () => true,
+    lists: [false, () => false]
 })
 
-export default function GoogleKeepProvider ({ children }: GoogleKeepCloneContextProps) {
+export default function GoogleKeepProvider({ children }: GoogleKeepCloneContextProps) {
     const [tasks, setTasks] = useState<AddNoteProps>({
-        id:0,
+        id: 0,
         title: "",
         note: "",
-        pinned:false,
+        pinned: false,
         collaborator: [""],
         image: "",
         selected: false,
@@ -53,8 +55,12 @@ export default function GoogleKeepProvider ({ children }: GoogleKeepCloneContext
     const [pinnedTasks, setPinnedTasks] = useState<AddNoteProps[]>([])
 
     const [expanded, setExpanded] = useState(true)
+    const [addList, setAddLists] = useState(false)
 
     return <GoogleKeepCloneContext.Provider value={
-        { tasks, setTasks, showTasks, setShowTasks, pinnedTasks, setPinnedTasks, expanded, setExpanded }
+        {
+            tasks, setTasks, showTasks, setShowTasks, pinnedTasks, setPinnedTasks, expanded, setExpanded,
+            lists: [addList, setAddLists]
+        }
     }>{children}</GoogleKeepCloneContext.Provider>
 }

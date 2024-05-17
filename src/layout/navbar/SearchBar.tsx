@@ -19,7 +19,7 @@ const SearchBar = () => {
             </Button>
           </div>
           <div className="w-full" onClick={() => setBg(true)}>
-            <Input type="text" placeholder="Search" variant="ghost" size="searchInput" />
+            <Input type="text" placeholder="Search" variant="ghost" style="searchInput" />
           </div>
           {bg && (
             <div>
@@ -44,7 +44,7 @@ const SearchBar = () => {
                 <FiArrowLeft className="text-xl" onClick={() => setMobileSearch(false)} />
               </Button>
             </div>
-            <Input type="text" placeholder="Search" variant="ghost" size="searchInput" />
+            <Input type="text" placeholder="Search" variant="ghost" style="searchInput" />
             <div>
               <Button variant="ghost" size="icon2" onClick={()=> setMobileSearch(false)}>
                 <FiX className="text-xl" />

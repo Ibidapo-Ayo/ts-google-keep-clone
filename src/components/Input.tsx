@@ -6,10 +6,10 @@ export const inpuStyles = cva(["transition-colors"], {
     variants: {
         variant: {
             default: ["bg-secondary", "hover:bg-secondary-hover"],
-            ghost: ["bg-transparent", "hover:bg-transparent"],
+            ghost: ["bg-transparent", "hover:bg-transparent", "placeholder:text-gray-500" , "placeholder:font-semibold"],
         },
 
-        size: {
+        style: {
             default: [" rounded", "p-2"],
             searchInput: [
                 "w-full", "py-2", "focus:border-none", "focus:outline-none"
@@ -17,21 +17,23 @@ export const inpuStyles = cva(["transition-colors"], {
             listInput: [
                 "w-full",
                 "py-1",
-                "px-1"
+                "px-1",
+                "border-0",
+                "outline-0"
             ],
         },
     },
     defaultVariants: {
         variant: "default",
-        size: "default",
+        style: "default",
     },
 })
 
 type InputProps = VariantProps<typeof inpuStyles> & ComponentProps<"input">
 
-const Input = ({ variant, size, className, ...props }: InputProps) => {
+const Input = ({ variant, style, className, ...props }: InputProps) => {
     return (
-        <input {...props} className={twMerge(inpuStyles({ variant, size }), className)} />
+        <input {...props} className={twMerge(inpuStyles({ variant, style }), className)} />
     )
 }
 
