@@ -10,7 +10,8 @@ export type AddNoteProps = {
     isAList: boolean,
     listValue: {
       id:  number,
-      text: string
+      text: string;
+      completed: boolean
     }[]
 }
 
@@ -21,12 +22,14 @@ export type AddListProps = {
     setListValue: React.Dispatch<React.SetStateAction<{
       id: number;
       text: string;
+      completed: boolean
     }[]>>,
     name: string,
     index: number,
     items: {
       id: number,
-      text: string
+      text: string;
+      completed: boolean
     }[],
     setIsActiveList: React.Dispatch<React.SetStateAction<number | undefined>>,
     isActiveList: number | undefined,

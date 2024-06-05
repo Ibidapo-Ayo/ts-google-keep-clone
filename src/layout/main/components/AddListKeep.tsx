@@ -16,7 +16,7 @@ function AddListKeep({ setIsTyping, listValue, setListValue, name, index, items,
 
 
         {isActiveList === index || items[index].text !== "" ? (
-          <Square className="text-3xl text-secondary-text cursor-pointer" />
+          <Square className="w-5 text-secondary-text cursor-pointer" />
         ) : (
           <Plus className='w-4 text-secondary-text' />
         )}
@@ -33,7 +33,8 @@ function AddListKeep({ setIsTyping, listValue, setListValue, name, index, items,
           if(index === items.length -1){
             setListValue((prev) => [...prev, {
               id: items.length + 1,
-              text: ""
+              text: "",
+              completed: false
             }])
           }
         }}
@@ -51,7 +52,8 @@ function AddListKeep({ setIsTyping, listValue, setListValue, name, index, items,
            if(items.length <= 1){
             setListValue([{
               id: 0,
-              text: ""
+              text: "",
+              completed: false
             }])
             return
            }

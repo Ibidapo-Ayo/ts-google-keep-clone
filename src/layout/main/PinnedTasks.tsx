@@ -2,8 +2,9 @@ import { useContext, useState } from 'react'
 import { GoogleKeepCloneContext } from '../../context/GoogleKeepCloneContext'
 import { FiCheck } from 'react-icons/fi'
 import Button from '../../components/Button'
-import { PinIcon, Square } from 'lucide-react'
+import { PinIcon } from 'lucide-react'
 import IconButtons from '../../components/IconButtons'
+import ShowList from './components/ShowList'
 
 const PinnedTasks = () => {
   const { pinnedTasks, setShowTasks, setPinnedTasks } = useContext(GoogleKeepCloneContext)
@@ -18,7 +19,7 @@ const PinnedTasks = () => {
     setPinnedTasks(removed)
 
     const showRemoved = pinnedTasks.filter((note) => note.id === id)
-    setShowTasks((prev)=> [...prev, showRemoved[0]])
+    setShowTasks((prev) => [...prev, showRemoved[0]])
   }
   return (
     <div>
@@ -47,18 +48,7 @@ const PinnedTasks = () => {
             </div>
             <div className="font-normal text-justify space-y-3 select-none">
               {pinned.isAList ? (
-                pinned.listValue.map((value) => {
-                  return (
-                    <div className="flex space-x-2" key={value.id}>
-                      <div>
-                        <Square />
-                      </div>
-                      <div>
-                        {value.text}
-                      </div>
-                    </div>
-                  )
-                })
+                <ShowList task={pinned} />
               ) : (
                 pinned.note.split("\n").map((note: string, index: number) => {
                   return (

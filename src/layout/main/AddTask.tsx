@@ -31,6 +31,7 @@ const AddTask = () => {
   const [listTasks, setListTask] = useState([{
     id: 1,
     text: "",
+    completed: false
   }])
 
 
@@ -61,6 +62,11 @@ const AddTask = () => {
   const showEditorHandler = () => {
     setShowEditor(true)
     setAddLists(true)
+  }
+
+  const handleShowList = ()=>{
+    const list = listTasks.filter((li)=> li.text !== "")
+    setTask({...task, listValue: list})
   }
 
   return (
@@ -139,10 +145,11 @@ const AddTask = () => {
               <Button className="px-5 py-2" variant="ghost" onClick={() => {
                 setShowEditor((prev)=> !prev)
                 setAddLists(false)
-                setTask({...task, listValue: listTasks})
+                handleShowList()
                 setListTask([{
                   id: 0,
-                  text: ""
+                  text: "",
+                  completed: false
                 }])
               }}>
                 <p className="font-medium tracking-wide text-lg">Close</p>

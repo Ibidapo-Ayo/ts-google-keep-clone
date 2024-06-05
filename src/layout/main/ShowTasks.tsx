@@ -4,6 +4,7 @@ import { FiCheck } from "react-icons/fi"
 import Button from "../../components/Button"
 import { PinIcon, Square } from "lucide-react"
 import IconButtons from "../../components/IconButtons"
+import ShowList from "./components/ShowList"
 
 
 const ShowTasks = () => {
@@ -30,7 +31,7 @@ const ShowTasks = () => {
                 {showTasks.length === 0 ? (
                     <p>No added tasks</p>
                 ) : (
-                    showTasks.map((task, index) => {
+                    showTasks.sort((a, b) => b.id - a.id).map((task, index) => {
                         return (
                             <div className="relative px-2 py-1 pb-4 rounded-md min-h-[60px] w-64 border hover:border-[2px] border-gray-300 space-y-3 hover:shadow-md hover:transition flex flex-col justify-between" key={`${index}-GoogleKeepId`} onMouseEnter={() => handleHoverElements(index)} onMouseLeave={() => {
                                 setHoverOnElement(undefined)
@@ -53,18 +54,7 @@ const ShowTasks = () => {
                                     </div>
                                     <div className="font-normal text-justify space-y-3 select-none">
                                         {task.isAList ? (
-                                            task.listValue.map((value) => {
-                                                return (
-                                                    <div className="flex space-x-2" key={value.id}>
-                                                        <div>
-                                                            <Square className="w-" />
-                                                        </div>
-                                                        <div>
-                                                            {value.text}
-                                                        </div>
-                                                    </div>
-                                                )
-                                            })
+                                            <ShowList task={task} />
                                         ) : (
                                             task.note.split("\n").map((note: string, index: number) => {
                                                 return (
