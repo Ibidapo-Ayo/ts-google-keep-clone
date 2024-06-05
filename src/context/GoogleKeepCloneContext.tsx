@@ -24,7 +24,9 @@ const notesProps = {
     collaborator: [""],
     image: "",
     selected: false,
-    archive: false
+    archive: false,
+    isAList: false,
+    listValue: []
 }
 
 export const GoogleKeepCloneContext = createContext<contextProps>({
@@ -48,7 +50,9 @@ export default function GoogleKeepProvider({ children }: GoogleKeepCloneContextP
         collaborator: [""],
         image: "",
         selected: false,
-        archive: false
+        archive: false,
+        isAList: false,
+        listValue: []
     })
 
     const [showTasks, setShowTasks] = useState<AddNoteProps[]>([])

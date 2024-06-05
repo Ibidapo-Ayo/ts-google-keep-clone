@@ -18,8 +18,8 @@ function App() {
       <div className='md:block hidden'>
       <Sidebar />
       </div>
-       <div>
-       <div className='max-w-2xl mx-auto'>
+       <div className='w-full'>
+       <div className='max-w-2xl mx-auto shrink-0'>
           <AddTask />
         </div>
         <div className='w-full'>

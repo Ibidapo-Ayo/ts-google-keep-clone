@@ -1,8 +1,8 @@
-import { useContext, useEffect, useId, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { GoogleKeepCloneContext } from "../../context/GoogleKeepCloneContext";
 import { useBodyClick } from "../../hooks/useBodyClick";
 import Button from "../../components/Button";
-import { BrushIcon, CheckSquare2, Image, PinIcon, Redo2, Undo2, } from "lucide-react";
+import { BrushIcon, Image, PinIcon, Redo2, SquareCheck, Undo2, } from "lucide-react";
 import IconButtons from "../../components/IconButtons";
 import AddListKeep from "./components/AddListKeep";
 
@@ -10,7 +10,7 @@ import AddListKeep from "./components/AddListKeep";
 const AddTask = () => {
   const [showEditor, setShowEditor] = useState<boolean>(false)
 
-  const { tasks, setTasks, setShowTasks, setPinnedTasks, lists } = useContext(GoogleKeepCloneContext)
+  const { tasks, setTasks, setShowTasks, setPinnedTasks, lists, showTasks } = useContext(GoogleKeepCloneContext)
   const [addList, setAddLists] = lists
 
   const [task, setTask] = [tasks, setTasks]
@@ -26,37 +26,41 @@ const AddTask = () => {
   }
 
   const [isTyping, setIsTyping] = useState<boolean>(false)
+  const [isActiveList, setIsActiveList] = useState<number | undefined>()
 
   const [listTasks, setListTask] = useState([{
-    id: useId,
+    id: 1,
     text: "",
   }])
 
 
   useEffect(() => {
     if (!showEditor && task.title) {
-
       if (task.pinned) {
         setPinnedTasks((prev) => [...prev, task])
       } else {
         setShowTasks((prev) => [...prev, task])
       }
+
       setTask({
-        id: 0,
+        id: showTasks.length +1,
         title: "",
         note: "",
         pinned: false,
         collaborator: [""],
         image: "",
         selected: false,
-        archive: false
+        archive: false,
+        isAList: false,
+        listValue: []
       })
     }
   }, [showEditor])
 
+
   const showEditorHandler = () => {
     setShowEditor(true)
-    setAddLists(false)
+    setAddLists(true)
   }
 
   return (
@@ -67,36 +71,43 @@ const AddTask = () => {
             <div className="w-full space-y-4 py-2 px-4" >
               <div className="w-full grid grid-cols-[1fr,50px] gap-4">
                 <div>
-                  <input className="border-none outline-none w-full text-gray-500 placeholder:text-gray-500 placeholder:font-normal text-xl" placeholder="Title" value={tasks.title} name="title" onChange={(e) => handleTitleChange(e)} />
+                  <input className="border-none placeholder:text-black placeholder:tracking-tight placeholder:text-[16px] resize-none outline-none w-full placeholder:font-normal text-[16px]" placeholder="Title" value={task.title} name="title" onChange={(e) => handleTitleChange(e)} />
                 </div>
                 <div>
                   <Button variant="ghost" size="icon2" className={`${task.pinned && "bg-gray-200"}`} onClick={() => setTask({ ...task, pinned: !task.pinned })}><PinIcon className="w-5" /> </Button>
                 </div>
               </div>
               <div className="w-full">
-                <textarea className="border-none resize-none overflow-hidden outline-none w-full placeholder:text-gray-500 placeholder:font-normal text-xl" placeholder="Take a note..." value={task.note} onChange={(e) => handleNoteChange(e)} />
+                <textarea className="border-none overflow-hidden placeholder:text-black placeholder:tracking-tighter placeholder:text-[16px] resize-none outline-none w-full placeholder:font-normal text-[16px]" placeholder="Take a note..." value={task.note} onChange={(e) => handleNoteChange(e)} />
               </div>
             </div>
           ) : (
             addList ? (
-              listTasks.map((list, index) => {
-                return (
-                  <div className="w-full">
-                    <div className="px-4">
-                      <input className="border-none outline-none w-full text-gray-500 placeholder:text-gray-500 placeholder:font-normal text-xl" placeholder="Title" value={tasks.title} name="title" onChange={(e) => handleTitleChange(e)} />
-                    </div>
-                    <AddListKeep setIsTyping={setIsTyping} isTyping={isTyping} listValue={list.text} name={`${list.id}-${index}`} index={index} setListValue={setListTask} />
-                  </div>
-                )
-              })
+              <div className="flex flex-col w-full">
+                <div className="px-4">
+                  <input className="border-none placeholder:text-black placeholder:tracking-tighter placeholder:text-[16px] resize-none outline-none w-full placeholder:font-normal text-[16px]" placeholder="Title" value={task.title} name="title" onChange={(e) => handleTitleChange(e)} />
+                </div>
 
+                {listTasks.map((list, index) => {
+                  return (
+                    <div className="w-full" key={list.id}>
+                      <AddListKeep setIsTyping={setIsTyping} isTyping={isTyping} listValue={list.text} name={`${list.id}-${index}`}
+                        id={list.id}
+                        index={index} setListValue={setListTask} items={listTasks} setIsActiveList={setIsActiveList} isActiveList={isActiveList} />
+                    </div>
+                  )
+                })}
+              </div>
             ) : (
               <div className="w-full grid grid-cols-[1fr,auto] gap-4 items-center px-4">
-                <input className="focus:border-none focus:outline-none py-2 border-none resize-none outline-none w-full placeholder:text-gray-500 placeholder:font-normal text-xl" placeholder="Take a note..." onClick={showEditorHandler} onFocus={() => setShowEditor(true)} />
+                <input className="focus:border-none focus:outline-none py-2 border-none placeholder:text-black placeholder:tracking-tighter placeholder:text-[16px] resize-none outline-none w-full placeholder:font-normal text-[16px]" placeholder="Take a note..." onClick={showEditorHandler} onFocus={() => setShowEditor(true)} />
 
                 <div className="flex items-center gap-4">
-                  <Button variant="darker" size="icon2" onClick={() => setAddLists(true)}>
-                    <CheckSquare2 />
+                  <Button variant="darker" size="icon2" onClick={() => {
+                    setTask({ ...task, isAList: true })
+                    showEditorHandler()
+                  }} >
+                    <SquareCheck className="" />
                   </Button>
                   <Button variant="darker" size="icon2">
                     <BrushIcon />
@@ -105,17 +116,16 @@ const AddTask = () => {
                     <Image />
                   </Button>
                 </div>
-
               </div>
 
             )
           )}
-        </div>
 
+        </div>
 
         {showEditor || addList && (
 
-          <div className="w-full flex justify-between items-center pt-5">
+          <div className="w-full flex justify-between items-center pt-5 pb-2">
             <div className="flex space-x-3 items-center">
               <IconButtons />
               <Button variant="ghost" size="icon3" disabled={true} className="disabled:opacity-50 disabled:cursor-not-allowed">
@@ -127,8 +137,9 @@ const AddTask = () => {
             </div>
             <div>
               <Button className="px-5 py-2" variant="ghost" onClick={() => {
-                setShowEditor(false)
+                setShowEditor((prev)=> !prev)
                 setAddLists(false)
+                setTask({...task, listValue: listTasks})
               }}>
                 <p className="font-medium tracking-wide text-lg">Close</p>
               </Button>
@@ -139,5 +150,4 @@ const AddTask = () => {
     </div>
   )
 }
-
 export default AddTask

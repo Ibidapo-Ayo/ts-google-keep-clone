@@ -15,8 +15,8 @@ const KeepBrand = () => {
            </Button>
         </div>
         <div className='flex items-center shrink-0'>
-            <img src='/images/logo/keep_logo.png' className='w-[45px] md:w-[90px]' />
-            <h4 className='text-secondary-text font-semibold tracking-tight text-md md:text-2xl'>Keep</h4>
+            <img src='/images/logo/keep_logo.png' className='w-[40px] md:w-[80px]' />
+            <h4 className='text-secondary-text font-normal tracking-tight text- md:text-2xl'>Keep</h4>
         </div>
     </div>
   )

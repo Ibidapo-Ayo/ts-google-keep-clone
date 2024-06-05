@@ -1,6 +1,6 @@
 
 import ShowTasks from '../layout/main/ShowTasks'
-import PinnedTasks from './PinnedTasks'
+import PinnedTasks from '../layout/main/PinnedTasks'
 
 const ShowTasksContainer = () => {
   return (

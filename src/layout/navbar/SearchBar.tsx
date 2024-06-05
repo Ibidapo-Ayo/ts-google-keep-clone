@@ -10,9 +10,9 @@ const SearchBar = () => {
 
   useBodyClick(setBg, "search-box")
   return (
-    <div className="flex flex-grow w-1/2">
+    <div className="flex flex-grow md:w-1/2 w-[30px]">
       <div className="w-full flex-col cursor-pointer hidden md:flex" id="search-box">
-        <div className={`w-4/5 flex items-center space-x-4 px-4 py-1 rounded-md ${`transition-color ${!bg ? " bg-gray-100" : "bg-white border border-gray-300 shadow-lg"}`}`}>
+        <div className={`w-4/5 flex items-center space-x-4 px-4 rounded-md ${`transition-color ${!bg ? " bg-gray-100" : "bg-white border border-gray-300 shadow-lg"}`}`}>
           <div>
             <Button variant="ghost" size="icon2">
               <FiSearch className="text-xl" />

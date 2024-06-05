@@ -6,7 +6,7 @@ export const inpuStyles = cva(["transition-colors"], {
     variants: {
         variant: {
             default: ["bg-secondary", "hover:bg-secondary-hover"],
-            ghost: ["bg-transparent", "hover:bg-transparent", "placeholder:text-gray-500" , "placeholder:font-semibold"],
+            ghost: ["bg-transparent", "hover:bg-transparent", "tracking-wide", "placeholder:tracking-wide", "placeholder:text-font-normal"],
         },
 
         style: {

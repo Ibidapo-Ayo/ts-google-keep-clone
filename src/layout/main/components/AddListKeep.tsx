@@ -1,26 +1,19 @@
-import { Plus, X } from 'lucide-react'
+import { Plus, Square, X } from 'lucide-react'
 import Input from '../../../components/Input'
 import { BiCheckbox } from 'react-icons/bi'
 import Button from '../../../components/Button'
+import { AddListProps } from '../../../props/AddTasksProps'
 
-type AddListProps = {
-  isTyping: boolean,
-  setIsTyping: (typing: boolean) => void,
-  listValue: string,
-  setListValue: React.Dispatch<React.SetStateAction<{
-    id: () => string;
-    text: string;
-  }[]>>,
-  name: string,
-  index: number
-}
 
-function AddListKeep({ isTyping, setIsTyping, listValue, setListValue, name, index }: AddListProps) {
+function AddListKeep({ setIsTyping, listValue, setListValue, name, index, items, isActiveList, setIsActiveList, id }: AddListProps) {
   return (
     <div className='pt-4'>
-      <div className='border-y border-y-secondary-border grid grid-cols-[20px,1fr,20px] gap-2 items-center px-4'>
-        {isTyping ? (
-          <BiCheckbox className="text-2xl text-secondary-text" />
+      <div className={`grid grid-cols-[20px,1fr,20px] gap-2 items-center px-4 ${index === isActiveList && "border-y"}`} onClick={() => {
+        setIsActiveList(index)
+        setIsTyping(false)
+      }}>
+        {isActiveList === index || items[index].text !== "" ? (
+          <Square className="text-3xl text-secondary-text cursor-pointer" />
         ) : (
           <Plus className='w-4 text-secondary-text' />
         )}
@@ -30,15 +23,30 @@ function AddListKeep({ isTyping, setIsTyping, listValue, setListValue, name, ind
             updated[index].text = e.target.value
             return updated
           })
-        }} placeholder='List Item' onInput={() => setIsTyping(false)} />
-        {isTyping && (
+        }} placeholder='List Item' onInput={() => {
+          setIsTyping(true)
+        }}
+          onKeyPress={(e) => {
+            if (e.key === "Enter") {
+              const lastItems = items[items.length - 1]
+              if (lastItems.text !== undefined) {
+                setListValue((prev) => [...prev, {
+                  id: items.length + 1,
+                  text: ""
+                }])
+              }
+              
+              setIsTyping(false)
+            }
+          }}
+
+        />
+        {isActiveList === index  && (
           <Button variant="ghost" size="icon3" className='p-1 w-7 h-7' onClick={() => {
-            setListValue((prev) => {
-              const updated = [...prev]
-              updated[index].text = ""
-              return updated
-            })
-            setIsTyping(false)
+            if (items.length !== 1) {
+              const deleteItem = items.filter((item) => item.id !== id)
+              setListValue(deleteItem)
+            }
           }}>
             <X className='w-4 text-secondary-text' />
           </Button>
