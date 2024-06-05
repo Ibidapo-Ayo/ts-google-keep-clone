@@ -2,7 +2,7 @@ import { Square } from 'lucide-react'
 
 type ListProps = {id: number; text: string; completed:boolean}
 
-const ShowList = ({task}) => {
+const ShowList = ({task}: any) => {
     return (
             task.listValue.map((list: ListProps) => {
                 return (

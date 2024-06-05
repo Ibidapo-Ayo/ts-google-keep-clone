@@ -2,7 +2,7 @@ import { useContext, useState } from "react"
 import { GoogleKeepCloneContext } from "../../context/GoogleKeepCloneContext"
 import { FiCheck } from "react-icons/fi"
 import Button from "../../components/Button"
-import { PinIcon, Square } from "lucide-react"
+import { PinIcon } from "lucide-react"
 import IconButtons from "../../components/IconButtons"
 import ShowList from "./components/ShowList"
 
