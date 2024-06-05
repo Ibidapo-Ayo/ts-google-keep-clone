@@ -22,7 +22,7 @@ function AddListKeep({ setIsTyping, listValue, setListValue, name, index, items,
         )}
 
 
-        <Input style="listInput" variant="ghost" type='text' name={name} value={listValue} onChange={(e) => {
+        <Input style="listInput" variant="ghost" type='text' className='placeholder:text-black placeholder:tracking-tighter placeholder:text-[16px] placeholder:font-normal text-[16px]' name={name} value={listValue} onChange={(e) => {
           setListValue((prev) => {
             const updated = [...prev]
             updated[index].text = e.target.value

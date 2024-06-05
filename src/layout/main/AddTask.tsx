@@ -140,6 +140,10 @@ const AddTask = () => {
                 setShowEditor((prev)=> !prev)
                 setAddLists(false)
                 setTask({...task, listValue: listTasks})
+                setListTask([{
+                  id: 0,
+                  text: ""
+                }])
               }}>
                 <p className="font-medium tracking-wide text-lg">Close</p>
               </Button>
