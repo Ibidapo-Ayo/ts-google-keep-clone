@@ -44,7 +44,7 @@ const AddTask = () => {
       }
 
       setTask({
-        id: showTasks.length +1,
+        id: showTasks.length + 1,
         title: "",
         note: "",
         pinned: false,
@@ -64,9 +64,9 @@ const AddTask = () => {
     setAddLists(true)
   }
 
-  const handleShowList = ()=>{
-    const list = listTasks.filter((li)=> li.text !== "")
-    setTask({...task, listValue: list})
+  const handleShowList = () => {
+    const list = listTasks.filter((li) => li.text !== "")
+    setTask({ ...task, listValue: list })
   }
 
   return (
@@ -74,7 +74,8 @@ const AddTask = () => {
       <div className="w-full shadow-secondary-border shadow-md rounded-md h-auto" id="add-task">
         <div className="flex flex-row justify-between">
           {showEditor && !addList ? (
-            <div className="w-full space-y-4 py-2 px-4" >
+            <div className="flex flex-col w-full">
+            <div className="w-full space-y-4 px-4" >
               <div className="w-full grid grid-cols-[1fr,50px] gap-4">
                 <div>
                   <input className="border-none placeholder:text-black placeholder:tracking-tight placeholder:text-[16px] resize-none outline-none w-full placeholder:font-normal text-[16px]" placeholder="Title" value={task.title} name="title" onChange={(e) => handleTitleChange(e)} />
@@ -86,6 +87,8 @@ const AddTask = () => {
               <div className="w-full">
                 <textarea className="border-none overflow-hidden placeholder:text-black placeholder:tracking-tighter placeholder:text-[16px] resize-none outline-none w-full placeholder:font-normal text-[16px]" placeholder="Take a note..." value={task.note} onChange={(e) => handleNoteChange(e)} />
               </div>
+            </div>
+            <BottomActions setShowEditor={setShowEditor} setAddLists={setAddLists} handleShowList={handleShowList} setListTask={setListTask} />
             </div>
           ) : (
             addList ? (
@@ -103,6 +106,7 @@ const AddTask = () => {
                     </div>
                   )
                 })}
+                <BottomActions setShowEditor={setShowEditor} setAddLists={setAddLists} handleShowList={handleShowList} setListTask={setListTask} />
               </div>
             ) : (
               <div className="w-full grid grid-cols-[1fr,auto] gap-4 items-center px-4">
@@ -128,37 +132,39 @@ const AddTask = () => {
           )}
 
         </div>
-
-        {showEditor || addList && (
-
-          <div className="w-full flex justify-between items-center pt-5 pb-2">
-            <div className="flex space-x-3 items-center">
-              <IconButtons />
-              <Button variant="ghost" size="icon3" disabled={true} className="disabled:opacity-50 disabled:cursor-not-allowed">
-                <Undo2 className="w-4" />
-              </Button>
-              <Button variant="ghost" size="icon3" disabled={true} className="disabled:opacity-50 disabled:cursor-not-allowed">
-                <Redo2 className="w-4" />
-              </Button>
-            </div>
-            <div>
-              <Button className="px-5 py-2" variant="ghost" onClick={() => {
-                setShowEditor((prev)=> !prev)
-                setAddLists(false)
-                handleShowList()
-                setListTask([{
-                  id: 0,
-                  text: "",
-                  completed: false
-                }])
-              }}>
-                <p className="font-medium tracking-wide text-lg">Close</p>
-              </Button>
-            </div>
-          </div>
-        )}
       </div>
     </div>
   )
 }
 export default AddTask
+
+
+export const BottomActions = ({setShowEditor, setAddLists, handleShowList, setListTask}:any) => {
+  return (
+    <div className="w-full flex justify-between items-center pb-2">
+      <div className="flex space-x-3 items-center">
+        <IconButtons />
+        <Button variant="ghost" size="icon3" disabled={true} className="disabled:opacity-50 disabled:cursor-not-allowed">
+          <Undo2 className="w-4" />
+        </Button>
+        <Button variant="ghost" size="icon3" disabled={true} className="disabled:opacity-50 disabled:cursor-not-allowed">
+          <Redo2 className="w-4" />
+        </Button>
+      </div>
+      <div>
+        <Button className="px-5 py-2" variant="ghost" onClick={() => {
+          setShowEditor((prev: boolean) => !prev)
+          setAddLists(false)
+          handleShowList()
+          setListTask([{
+            id: 0,
+            text: "",
+            completed: false
+          }])
+        }}>
+          <p className="font-medium tracking-wide text-lg">Close</p>
+        </Button>
+      </div>
+    </div>
+  )
+}
