@@ -1,11 +1,11 @@
 
 import './App.css'
-import AddTask from './layout/main/AddTask'
 import ShowTasksContainer from './components/ShowTasksContainer'
 import Sidebar from './layout/sidebar/Sidebar'
 import NavBarContainer from './layout/navbar'
 import GoogleKeepProvider from './context/GoogleKeepCloneContext'
 import MobileSideBar from './layout/sidebar/MobileSideBar'
+import Layout from './layout/main'
 function App() {
 
   return (
@@ -19,8 +19,8 @@ function App() {
       <Sidebar />
       </div>
        <div className='w-full'>
-       <div className='max-w-xl mx-auto shrink-0'>
-          <AddTask />
+       <div className='max-w-2xl mx-auto shrink-0'>
+         <Layout />
         </div>
         <div className='w-full'>
           <ShowTasksContainer />

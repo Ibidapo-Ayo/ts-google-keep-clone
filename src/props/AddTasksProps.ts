@@ -6,7 +6,9 @@ export type AddNoteProps = {
     image: string,
     archive: boolean,
     selected: boolean,
-    collaborator: string[],
+    collaborator: {
+      email:string
+    }[],
     isAList: boolean,
     listValue: {
       id:  number,
