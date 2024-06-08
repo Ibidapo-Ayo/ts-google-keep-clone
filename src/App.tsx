@@ -19,7 +19,7 @@ function App() {
       <Sidebar />
       </div>
        <div className='w-full'>
-       <div className='max-w-2xl mx-auto shrink-0'>
+       <div className='max-w-xl mx-auto shrink-0'>
           <AddTask />
         </div>
         <div className='w-full'>
