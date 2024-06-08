@@ -162,7 +162,7 @@ export const BottomActions = ({setShowEditor, setAddLists, handleShowList, setLi
             completed: false
           }])
         }}>
-          <p className="font-medium tracking-wide text-lg">Close</p>
+          <p className="font-normal tracking-wide text-sm">Close</p>
         </Button>
       </div>
     </div>
