@@ -15,7 +15,8 @@ type contextProps = {
     expanded: boolean,
     setExpanded: React.Dispatch<React.SetStateAction<boolean>>,
     lists: [boolean, React.Dispatch<React.SetStateAction<boolean>>]
-    openAction: [string, React.Dispatch<React.SetStateAction<string>>]
+    openAction: [string, React.Dispatch<React.SetStateAction<string>>],
+    editorHandler: [boolean, React.Dispatch<React.SetStateAction<boolean>>]
 }
 const notesProps = {
     id: 0,
@@ -27,7 +28,8 @@ const notesProps = {
     selected: false,
     archive: false,
     isAList: false,
-    listValue: []
+    listValue: [],
+    editorHandler: []
 }
 
 export const GoogleKeepCloneContext = createContext<contextProps>({
@@ -40,7 +42,8 @@ export const GoogleKeepCloneContext = createContext<contextProps>({
     expanded: true,
     setExpanded: () => true,
     lists: [false, () => false],
-    openAction: ["", ()=> ""]
+    openAction: ["", ()=> ""],
+    editorHandler: [false, ()=> false]
 })
 
 export default function GoogleKeepProvider({ children }: GoogleKeepCloneContextProps) {
@@ -64,11 +67,14 @@ export default function GoogleKeepProvider({ children }: GoogleKeepCloneContextP
     const [addList, setAddLists] = useState(false)
     const [openActions, setOpenActions] = useState("")
 
+    const [showEditor, setShowEditor] = useState<boolean>(false)
+
     return <GoogleKeepCloneContext.Provider value={
         {
             tasks, setTasks, showTasks, setShowTasks, pinnedTasks, setPinnedTasks, expanded, setExpanded,
             lists: [addList, setAddLists],
-            openAction: [openActions, setOpenActions]
+            openAction: [openActions, setOpenActions],
+            editorHandler: [showEditor, setShowEditor]
         }
     }>{children}</GoogleKeepCloneContext.Provider>
 }

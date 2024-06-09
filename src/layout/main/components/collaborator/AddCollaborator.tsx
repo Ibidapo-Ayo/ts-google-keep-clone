@@ -10,9 +10,10 @@ interface Collaborator {
 }
 
 const AddCollaborator = () => {
-    const { openAction, tasks, setTasks } = useContext(GoogleKeepCloneContext)
-    const [openActions, setOpenActions] = openAction
+    const { openAction, tasks, setTasks, editorHandler } = useContext(GoogleKeepCloneContext)
+    const [_, setOpenActions] = openAction
 
+    const [showEditor, setShowEditor] = editorHandler
     const [value, setValue] = useState({
         email: ""
     })
@@ -29,12 +30,13 @@ const AddCollaborator = () => {
     }
 
     const handleRemoveCollaborator = (index: number) => {
-        const removedCollaborator = collaborators.filter((col, i) => i !== index)
+        const removedCollaborator = collaborators.filter((_col, i) => i !== index)
         setCollaborators(removedCollaborator)
     }
 
     const handleSaveCollaborators = () => {
         setTasks({ ...tasks, collaborator: collaborators})
+        // setShowEditor((prev)=> prev)
         setOpenActions("")
     }
     return (

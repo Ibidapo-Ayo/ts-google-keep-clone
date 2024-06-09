@@ -18,8 +18,6 @@ export type AddNoteProps = {
 }
 
 export type AddListProps = {
-    isTyping: boolean,
-    setIsTyping: (typing: boolean) => void,
     listValue: string,
     setListValue: React.Dispatch<React.SetStateAction<{
       id: number;

@@ -2,9 +2,12 @@ import { Plus, Square, X } from 'lucide-react'
 import Input from '../../../components/Input'
 import Button from '../../../components/Button'
 import { AddListProps } from '../../../props/AddTasksProps'
+import { useState } from 'react'
 
 
-function AddListKeep({ setIsTyping, listValue, setListValue, name, index, items, isActiveList, setIsActiveList, id }: AddListProps) {
+function AddListKeep({listValue, setListValue, name, index, items, isActiveList, setIsActiveList, id }: AddListProps) {
+  const [, setIsTyping] = useState<boolean>(false)
+  
   return (
     <div className='pt-4'>
       <div className={`grid grid-cols-[20px,1fr,20px] gap-2 items-center px-4 ${index === isActiveList && "border-y"}`} onClick={() => {

@@ -1,18 +1,19 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Key, useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { GoogleKeepCloneContext } from "../../context/GoogleKeepCloneContext";
 import { useBodyClick } from "../../hooks/useBodyClick";
 import Button from "../../components/Button";
 import { BrushIcon, Image, PinIcon, Redo2, SquareCheck, Undo2, } from "lucide-react";
 import IconButtons from "../../components/IconButtons";
 import AddListKeep from "./components/AddListKeep";
+import Input from "../../components/Input";
 
 
 const AddTask = () => {
-  const [showEditor, setShowEditor] = useState<boolean>(false)
-
-  const { tasks, setTasks, setShowTasks, setPinnedTasks, lists, showTasks } = useContext(GoogleKeepCloneContext)
+  const { tasks, setTasks, setShowTasks, setPinnedTasks, lists, showTasks, editorHandler } = useContext(GoogleKeepCloneContext)
   const [addList, setAddLists] = lists
+
+  const [showEditor, setShowEditor] = editorHandler
 
   const [task, setTask] = [tasks, setTasks]
 
@@ -25,8 +26,6 @@ const AddTask = () => {
   const handleNoteChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setTask({ ...task, note: e.target.value })
   }
-
-  const [isTyping, setIsTyping] = useState<boolean>(false)
   const [isActiveList, setIsActiveList] = useState<number | undefined>()
 
   const [listTasks, setListTask] = useState([{
@@ -44,18 +43,21 @@ const AddTask = () => {
         setShowTasks((prev) => [...prev, task])
       }
     }
-    setTask({
-      id: showTasks.length + 1,
-      title: "",
-      note: "",
-      pinned: false,
-      collaborator: [],
-      image: "",
-      selected: false,
-      archive: false,
-      isAList: false,
-      listValue: []
-    })
+
+    if(!task.title || !showEditor){
+      setTask({
+        id: showTasks.length + 1,
+        title: "",
+        note: "",
+        pinned: false,
+        collaborator: [],
+        image: "",
+        selected: false,
+        archive: false,
+        isAList: false,
+        listValue: []
+      })
+    }
   }, [showEditor])
 
 
@@ -80,9 +82,7 @@ const AddTask = () => {
                   <div>
                     <input className="border-none placeholder:text-black placeholder:tracking-tight placeholder:text-[16px] resize-none outline-none w-full placeholder:font-normal text-[16px]" placeholder="Title" value={task.title} name="title" onChange={(e) => handleTitleChange(e)} />
                   </div>
-                  <div>
-                    <Button variant="ghost" size="icon2" className={`${task.pinned && "bg-gray-200"}`} onClick={() => setTask({ ...task, pinned: !task.pinned })}><PinIcon className="w-5" /> </Button>
-                  </div>
+                  <Button variant="ghost" size="icon2" className={`${task.pinned && "bg-gray-200"}`} onClick={() => setTask({ ...task, pinned: !task.pinned })}><PinIcon className="w-5" /> </Button>
                 </div>
                 <div className="w-full">
                   <textarea className="border-none overflow-hidden placeholder:text-black placeholder:tracking-tighter placeholder:text-[16px] resize-none outline-none w-full placeholder:font-normal text-[16px]" placeholder="Take a note..." value={task.note} onChange={(e) => handleNoteChange(e)} />
@@ -94,13 +94,13 @@ const AddTask = () => {
             addList ? (
               <div className="flex flex-col w-full">
                 <div className="px-4">
-                  <input className="border-none placeholder:text-black placeholder:tracking-tighter placeholder:text-[16px] resize-none outline-none w-full placeholder:font-normal text-[16px]" placeholder="Title" value={task.title} name="title" onChange={(e) => handleTitleChange(e)} />
+                  <Input variant={"ghost"} className="border-none placeholder:text-black placeholder:tracking-tighter placeholder:text-[16px] resize-none outline-none w-full placeholder:font-normal text-[16px]" placeholder="Title" value={task.title} name="title" onChange={(e) => handleTitleChange(e)} />
                 </div>
 
                 {listTasks.map((list, index) => {
                   return (
                     <div className="w-full" key={list.id}>
-                      <AddListKeep setIsTyping={setIsTyping} isTyping={isTyping} listValue={list.text} name={`${list.id}-${index}`}
+                      <AddListKeep listValue={list.text} name={`${list.id}-${index}`}
                         id={list.id}
                         index={index} setListValue={setListTask} items={listTasks} setIsActiveList={setIsActiveList} isActiveList={isActiveList} />
                     </div>
@@ -144,7 +144,7 @@ export const BottomActions = ({ setShowEditor, setAddLists, handleShowList, setL
     <div className="px-4">
       <div className="flex space-x-3">
         {collaborator.length !== 0 && (
-          collaborator.map((col: any, i: Key | null | undefined) => {
+          collaborator.map((_col: any, i:number) => {
             return (
               <div className="w-10 h-10 border-2 border-white rounded-full" key={i}>
                 <img src="/images/profile/ibidapo-ayomide.jpg" className='w-full h-full rounded-full' />

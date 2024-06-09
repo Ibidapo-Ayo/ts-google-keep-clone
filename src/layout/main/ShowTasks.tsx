@@ -9,7 +9,7 @@ import ShowList from "./components/ShowList"
 
 const ShowTasks = () => {
 
-    const { showTasks, setPinnedTasks, setShowTasks } = useContext(GoogleKeepCloneContext)
+    const { showTasks, setPinnedTasks, setShowTasks, setTasks } = useContext(GoogleKeepCloneContext)
 
     const [hoverOnElement, setHoverOnElement] = useState<number | undefined>(undefined)
 
@@ -35,7 +35,12 @@ const ShowTasks = () => {
                         return (
                             <div className="relative px-2 py-1 pb-4 rounded-md min-h-[60px] w-64 border hover:border-[2px] border-gray-300 space-y-3 hover:shadow-md hover:transition flex flex-col justify-between" key={`${index}-GoogleKeepId`} onMouseEnter={() => handleHoverElements(index)} onMouseLeave={() => {
                                 setHoverOnElement(undefined)
-                            }}>
+                            }} 
+                            onClick={()=>{
+                                setTasks(task)
+                                console.log(task)
+                            }}
+                            >
                                 <div className="space-y-3">
                                     <div className={`${hoverOnElement === index ? "block" : "hidden"} absolute rounded-full bg-black -top-2 -left-2 px-1 py-1`}>
                                         <FiCheck className="text-white text-md font-bold " />
