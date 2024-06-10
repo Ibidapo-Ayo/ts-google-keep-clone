@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useContext, useEffect, useState } from "react";
 import { GoogleKeepCloneContext } from "../../context/GoogleKeepCloneContext";
 import { useBodyClick } from "../../hooks/useBodyClick";
@@ -5,13 +6,14 @@ import Button from "../../components/Button";
 import { BrushIcon, Image, PinIcon, Redo2, SquareCheck, Undo2, } from "lucide-react";
 import IconButtons from "../../components/IconButtons";
 import AddListKeep from "./components/AddListKeep";
+import Input from "../../components/Input";
 
 
 const AddTask = () => {
-  const [showEditor, setShowEditor] = useState<boolean>(false)
-
-  const { tasks, setTasks, setShowTasks, setPinnedTasks, lists, showTasks } = useContext(GoogleKeepCloneContext)
+  const { tasks, setTasks, setShowTasks, setPinnedTasks, lists, showTasks, editorHandler } = useContext(GoogleKeepCloneContext)
   const [addList, setAddLists] = lists
+
+  const [showEditor, setShowEditor] = editorHandler
 
   const [task, setTask] = [tasks, setTasks]
 
@@ -24,8 +26,6 @@ const AddTask = () => {
   const handleNoteChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setTask({ ...task, note: e.target.value })
   }
-
-  const [isTyping, setIsTyping] = useState<boolean>(false)
   const [isActiveList, setIsActiveList] = useState<number | undefined>()
 
   const [listTasks, setListTask] = useState([{
@@ -42,13 +42,12 @@ const AddTask = () => {
       } else {
         setShowTasks((prev) => [...prev, task])
       }
-
       setTask({
         id: showTasks.length + 1,
         title: "",
         note: "",
         pinned: false,
-        collaborator: [""],
+        collaborator: [],
         image: "",
         selected: false,
         archive: false,
@@ -56,6 +55,7 @@ const AddTask = () => {
         listValue: []
       })
     }
+
   }, [showEditor])
 
 
@@ -75,38 +75,36 @@ const AddTask = () => {
         <div className="flex flex-row justify-between">
           {showEditor && !addList ? (
             <div className="flex flex-col w-full">
-            <div className="w-full space-y-4 px-4" >
-              <div className="w-full grid grid-cols-[1fr,50px] gap-4">
-                <div>
-                  <input className="border-none placeholder:text-black placeholder:tracking-tight placeholder:text-[16px] resize-none outline-none w-full placeholder:font-normal text-[16px]" placeholder="Title" value={task.title} name="title" onChange={(e) => handleTitleChange(e)} />
-                </div>
-                <div>
+              <div className="w-full space-y-4 px-4" >
+                <div className="w-full grid grid-cols-[1fr,50px] gap-4">
+                  <div>
+                    <input className="border-none placeholder:text-black placeholder:tracking-tight placeholder:text-[16px] resize-none outline-none w-full placeholder:font-normal text-[16px]" placeholder="Title" value={task.title} name="title" onChange={(e) => handleTitleChange(e)} />
+                  </div>
                   <Button variant="ghost" size="icon2" className={`${task.pinned && "bg-gray-200"}`} onClick={() => setTask({ ...task, pinned: !task.pinned })}><PinIcon className="w-5" /> </Button>
                 </div>
+                <div className="w-full">
+                  <textarea className="border-none overflow-hidden placeholder:text-black placeholder:tracking-tighter placeholder:text-[16px] resize-none outline-none w-full placeholder:font-normal text-[16px]" placeholder="Take a note..." value={task.note} onChange={(e) => handleNoteChange(e)} />
+                </div>
               </div>
-              <div className="w-full">
-                <textarea className="border-none overflow-hidden placeholder:text-black placeholder:tracking-tighter placeholder:text-[16px] resize-none outline-none w-full placeholder:font-normal text-[16px]" placeholder="Take a note..." value={task.note} onChange={(e) => handleNoteChange(e)} />
-              </div>
-            </div>
-            <BottomActions setShowEditor={setShowEditor} setAddLists={setAddLists} handleShowList={handleShowList} setListTask={setListTask} />
+              <BottomActions setShowEditor={setShowEditor} setAddLists={setAddLists} handleShowList={handleShowList} setListTask={setListTask} collaborator={task.collaborator} />
             </div>
           ) : (
             addList ? (
               <div className="flex flex-col w-full">
                 <div className="px-4">
-                  <input className="border-none placeholder:text-black placeholder:tracking-tighter placeholder:text-[16px] resize-none outline-none w-full placeholder:font-normal text-[16px]" placeholder="Title" value={task.title} name="title" onChange={(e) => handleTitleChange(e)} />
+                  <Input variant={"ghost"} className="border-none placeholder:text-black placeholder:tracking-tighter placeholder:text-[16px] resize-none outline-none w-full placeholder:font-normal text-[16px]" placeholder="Title" value={task.title} name="title" onChange={(e) => handleTitleChange(e)} />
                 </div>
 
                 {listTasks.map((list, index) => {
                   return (
                     <div className="w-full" key={list.id}>
-                      <AddListKeep setIsTyping={setIsTyping} isTyping={isTyping} listValue={list.text} name={`${list.id}-${index}`}
+                      <AddListKeep listValue={list.text} name={`${list.id}-${index}`}
                         id={list.id}
                         index={index} setListValue={setListTask} items={listTasks} setIsActiveList={setIsActiveList} isActiveList={isActiveList} />
                     </div>
                   )
                 })}
-                <BottomActions setShowEditor={setShowEditor} setAddLists={setAddLists} handleShowList={handleShowList} setListTask={setListTask} />
+                <BottomActions setShowEditor={setShowEditor} setAddLists={setAddLists} handleShowList={handleShowList} setListTask={setListTask} collaborator={task.collaborator} />
               </div>
             ) : (
               <div className="w-full grid grid-cols-[1fr,auto] gap-4 items-center px-4">
@@ -139,31 +137,44 @@ const AddTask = () => {
 export default AddTask
 
 
-export const BottomActions = ({setShowEditor, setAddLists, handleShowList, setListTask}:any) => {
+export const BottomActions = ({ setShowEditor, setAddLists, handleShowList, setListTask, collaborator }: any) => {
   return (
-    <div className="w-full flex justify-between items-center pb-2">
-      <div className="flex space-x-3 items-center">
-        <IconButtons />
-        <Button variant="ghost" size="icon3" disabled={true} className="disabled:opacity-50 disabled:cursor-not-allowed">
-          <Undo2 className="w-4" />
-        </Button>
-        <Button variant="ghost" size="icon3" disabled={true} className="disabled:opacity-50 disabled:cursor-not-allowed">
-          <Redo2 className="w-4" />
-        </Button>
+    <div className="px-4">
+      <div className="flex space-x-3">
+        {collaborator.length !== 0 && (
+          collaborator.map((_col: any, i:number) => {
+            return (
+              <div className="w-10 h-10 border-2 border-white rounded-full" key={i}>
+                <img src="/images/profile/ibidapo-ayomide.jpg" className='w-full h-full rounded-full' />
+              </div>
+            )
+          })
+        )}
       </div>
-      <div>
-        <Button className="px-5 py-2" variant="ghost" onClick={() => {
-          setShowEditor((prev: boolean) => !prev)
-          setAddLists(false)
-          handleShowList()
-          setListTask([{
-            id: 0,
-            text: "",
-            completed: false
-          }])
-        }}>
-          <p className="font-medium tracking-wide text-lg">Close</p>
-        </Button>
+      <div className="w-full flex justify-between items-center pb-2">
+        <div className="flex space-x-3 items-center">
+          <IconButtons />
+          <Button variant="ghost" size="icon3" disabled={true} className="disabled:opacity-50 disabled:cursor-not-allowed">
+            <Undo2 className="w-4" />
+          </Button>
+          <Button variant="ghost" size="icon3" disabled={true} className="disabled:opacity-50 disabled:cursor-not-allowed">
+            <Redo2 className="w-4" />
+          </Button>
+        </div>
+        <div>
+          <Button className="px-5 py-2" variant="ghost" onClick={() => {
+            setShowEditor((prev: boolean) => !prev)
+            setAddLists(false)
+            handleShowList()
+            setListTask([{
+              id: 0,
+              text: "",
+              completed: false
+            }])
+          }}>
+            <p className="font-normal tracking-wide text-sm">Close</p>
+          </Button>
+        </div>
       </div>
     </div>
   )
