@@ -21,10 +21,6 @@ export const inpuStyles = cva(["transition-colors"], {
                 "border-0",
                 "outline-0"
             ],
-            noneBgInput: [
-                "outline-0",
-                "border-0"
-            ]
         },
     },
     defaultVariants: {
