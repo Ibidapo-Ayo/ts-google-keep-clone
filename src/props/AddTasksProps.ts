@@ -1,3 +1,16 @@
+export const notesProps = {
+  id: 0,
+  title: "",
+  note: "",
+  pinned: false,
+  collaborator: [],
+  image: "",
+  selected: false,
+  archive: false,
+  isAList: false,
+  listValue: [],
+}
+
 export type AddNoteProps = {
     id: number,
     title: string,
