@@ -37,9 +37,17 @@ const ShowTasks = () => {
                                 setHoverOnElement(undefined)
                             }}>
                                 <div className="space-y-3">
-                                    <div className={`${hoverOnElement === index ? "block" : "hidden"} absolute rounded-full bg-black -top-2 -left-2 px-1 py-1`}>
-                                        <FiCheck className="text-white text-md font-bold " />
-                                    </div>
+                                    <div className={`${hoverOnElement === index || selectedTasks.some((id)=> task.id === id) ? "block" : "hidden"} absolute rounded-full bg-black -top-2 -left-2 px-1 py-1 cursor-pointer`}
+                                    onClick={()=>{
+                                        if(selectedTasks.some((id)=> id === task.id)){
+                                            const filteredSelectedTasks = selectedTasks.filter((task_id)=> task_id !== task.id)
+                                            setSelectedTasks(filteredSelectedTasks)
+                                            return
+                                        }
+
+                                        setSelectedTasks((prev) => [...prev, task.id])
+                                    }}
+                                    >
 
                                     <div className="w-60 grid grid-cols-[1fr,35px] items-center">
                                         <h4 className="text-wrap font-semibold tracking-tight text-md">{task.title}</h4>
