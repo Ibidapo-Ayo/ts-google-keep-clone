@@ -2,7 +2,6 @@ import { Square } from 'lucide-react'
 
 type ListProps = {id: number; text: string; completed:boolean}
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const ShowList = ({task}: any) => {
     return (
             task.listValue.map((list: ListProps) => {
