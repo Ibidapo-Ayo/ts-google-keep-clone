@@ -42,9 +42,6 @@ const AddTask = () => {
       } else {
         setShowTasks((prev) => [...prev, task])
       }
-    }
-
-    if(!task.title || !showEditor){
       setTask({
         id: showTasks.length + 1,
         title: "",
@@ -58,6 +55,7 @@ const AddTask = () => {
         listValue: []
       })
     }
+
   }, [showEditor])
 
 
