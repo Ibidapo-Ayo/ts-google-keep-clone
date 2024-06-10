@@ -40,7 +40,7 @@ const ShowTasks = () => {
                             }} 
                             >
                                 <div className="space-y-3">
-                                    <div className={`${hoverOnElement === index || selectedTasks.some((id)=> task.id === id) ? "block" : "hidden"} absolute rounded-full bg-black -top-2 -left-2 px-1 py-1`}
+                                    <div className={`${hoverOnElement === index || selectedTasks.some((id)=> task.id === id) ? "block" : "hidden"} absolute rounded-full bg-black -top-2 -left-2 px-1 py-1 cursor-pointer`}
                                     onClick={()=>{
                                         if(selectedTasks.some((id)=> id === task.id)){
                                             const filteredSelectedTasks = selectedTasks.filter((task_id)=> task_id !== task.id)
