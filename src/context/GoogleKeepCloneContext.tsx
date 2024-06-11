@@ -1,5 +1,5 @@
 import { createContext, useState } from "react";
-import { AddNoteProps } from "../props/AddTasksProps";
+import { AddNoteProps, notesProps } from "../props/AddTasksProps";
 
 type GoogleKeepCloneContextProps = {
     children: React.ReactNode
@@ -19,18 +19,6 @@ type contextProps = {
     editorHandler: [boolean, React.Dispatch<React.SetStateAction<boolean>>],
     selectedTask: [number[], React.Dispatch<React.SetStateAction<number[]>>]
 }
-const notesProps = {
-    id: 0,
-    title: "",
-    note: "",
-    pinned: false,
-    collaborator: [],
-    image: "",
-    selected: false,
-    archive: false,
-    isAList: false,
-    listValue: [],
-}
 
 export const GoogleKeepCloneContext = createContext<contextProps>({
     tasks: notesProps,
@@ -48,18 +36,7 @@ export const GoogleKeepCloneContext = createContext<contextProps>({
 })
 
 export default function GoogleKeepProvider({ children }: GoogleKeepCloneContextProps) {
-    const [tasks, setTasks] = useState<AddNoteProps>({
-        id: 0,
-        title: "",
-        note: "",
-        pinned: false,
-        collaborator: [],
-        image: "",
-        selected: false,
-        archive: false,
-        isAList: false,
-        listValue: []
-    })
+    const [tasks, setTasks] = useState<AddNoteProps>(notesProps)
 
     const [showTasks, setShowTasks] = useState<AddNoteProps[]>([])
     const [pinnedTasks, setPinnedTasks] = useState<AddNoteProps[]>([])

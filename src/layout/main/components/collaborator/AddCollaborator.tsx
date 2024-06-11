@@ -11,7 +11,7 @@ interface Collaborator {
 
 const AddCollaborator = () => {
     const { openAction, tasks, setTasks, editorHandler } = useContext(GoogleKeepCloneContext)
-    const [_, setOpenActions] = openAction
+    const [openActions, setOpenActions] = openAction
 
     const [showEditor, setShowEditor] = editorHandler
     const [value, setValue] = useState({
@@ -36,11 +36,11 @@ const AddCollaborator = () => {
 
     const handleSaveCollaborators = () => {
         setTasks({ ...tasks, collaborator: collaborators})
-        // setShowEditor((prev)=> prev)
+        setShowEditor(true)
         setOpenActions("")
     }
     return (
-            <div className="w-full shadow-secondary-border shadow-md rounded-md h-auto space-y-4">
+            <div className={`w-full shadow-secondary-border bg-white shadow-md rounded-md h-auto space-y-4`}>
                 <div className="px-4 divide-y divide-secondary-hover space-y-3">
                     <h3 className="text-lg font-medium">Collobarators</h3>
                     <div className="py-4">
@@ -98,6 +98,7 @@ const AddCollaborator = () => {
                     <div className="flex space-x-8">
                         <Button className="px-5 py-2 tracking-tight text-sm font-medium" variant="ghost" onClick={() => {
                             setOpenActions("")
+                            setShowEditor(true)
                         }}>
                             Cancel
                         </Button>

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { useContext, useState } from "react"
 import { GoogleKeepCloneContext } from "../../context/GoogleKeepCloneContext"
 import { FiCheck } from "react-icons/fi"
@@ -76,6 +77,15 @@ const ShowTasks = () => {
                                             })
                                         )}
                                     </div>
+                                </div>
+                                <div className="flex space-x-2">
+                                    {task.collaborator.map((_collaborator)=>{
+                                        return (
+                                            <div className="h-6 w-6 rounded-full" key={_collaborator.email}>
+                                                <img src="/images/profile/ibidapo-ayomide.jpg" className='w-full h-full rounded-full' />
+                                            </div>
+                                        )
+                                    })}
                                 </div>
                                 <div className="flex flex-row h-7 shrink-0">
                                     {hoverOnElement === index && (
