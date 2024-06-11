@@ -7,7 +7,7 @@ import { GoogleKeepCloneContext } from '../context/GoogleKeepCloneContext'
 
 const IconButtons = () => {
     const {openAction} = useContext(GoogleKeepCloneContext)
-    const [openActions, setOpenActions] = openAction
+    const [_, setOpenActions] = openAction
 
 
     return (

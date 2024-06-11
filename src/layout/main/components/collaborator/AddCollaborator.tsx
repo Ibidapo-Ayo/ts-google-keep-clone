@@ -13,7 +13,7 @@ const AddCollaborator = () => {
     const { openAction, tasks, setTasks, editorHandler } = useContext(GoogleKeepCloneContext)
     const [openActions, setOpenActions] = openAction
 
-    const [showEditor, setShowEditor] = editorHandler
+    const [_, setShowEditor] = editorHandler
     const [value, setValue] = useState({
         email: ""
     })
