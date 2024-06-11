@@ -40,7 +40,6 @@ const AddTask = () => {
 
 
   useEffect(() => {
-    console.log(showEditor)
     if (!showEditor && (task.title || task.collaborator.length >=1)) {
       if (task.pinned) {
         setPinnedTasks((prev) => [...prev, task])
