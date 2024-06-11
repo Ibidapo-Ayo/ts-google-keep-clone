@@ -6,6 +6,7 @@ import Sidebar from './layout/sidebar/Sidebar'
 import NavBarContainer from './layout/navbar'
 import GoogleKeepProvider from './context/GoogleKeepCloneContext'
 import MobileSideBar from './layout/sidebar/MobileSideBar'
+import SelectTask from './layout/main/components/select-tasks/SelectTask'
 function App() {
 
   return (
@@ -27,6 +28,7 @@ function App() {
         </div>
        </div>
       </div>
+      <SelectTask />
     </GoogleKeepProvider>
   )
 }

@@ -15,18 +15,21 @@ type contextProps = {
     expanded: boolean,
     setExpanded: React.Dispatch<React.SetStateAction<boolean>>,
     lists: [boolean, React.Dispatch<React.SetStateAction<boolean>>]
+    openAction: [string, React.Dispatch<React.SetStateAction<string>>],
+    editorHandler: [boolean, React.Dispatch<React.SetStateAction<boolean>>],
+    selectedTask: [number[], React.Dispatch<React.SetStateAction<number[]>>]
 }
 const notesProps = {
     id: 0,
     title: "",
     note: "",
     pinned: false,
-    collaborator: [""],
+    collaborator: [],
     image: "",
     selected: false,
     archive: false,
     isAList: false,
-    listValue: []
+    listValue: [],
 }
 
 export const GoogleKeepCloneContext = createContext<contextProps>({
@@ -38,7 +41,10 @@ export const GoogleKeepCloneContext = createContext<contextProps>({
     setPinnedTasks: () => [],
     expanded: true,
     setExpanded: () => true,
-    lists: [false, () => false]
+    lists: [false, () => false],
+    openAction: ["", ()=> ""],
+    editorHandler: [false, ()=> false],
+    selectedTask: [[], ()=> []]
 })
 
 export default function GoogleKeepProvider({ children }: GoogleKeepCloneContextProps) {
@@ -47,7 +53,7 @@ export default function GoogleKeepProvider({ children }: GoogleKeepCloneContextP
         title: "",
         note: "",
         pinned: false,
-        collaborator: [""],
+        collaborator: [],
         image: "",
         selected: false,
         archive: false,
@@ -60,11 +66,18 @@ export default function GoogleKeepProvider({ children }: GoogleKeepCloneContextP
 
     const [expanded, setExpanded] = useState(true)
     const [addList, setAddLists] = useState(false)
+    const [openActions, setOpenActions] = useState("")
+
+    const [showEditor, setShowEditor] = useState<boolean>(false)
+    const [selectedTasks, setSelectedTasks] = useState<number[]>([])
 
     return <GoogleKeepCloneContext.Provider value={
         {
             tasks, setTasks, showTasks, setShowTasks, pinnedTasks, setPinnedTasks, expanded, setExpanded,
-            lists: [addList, setAddLists]
+            lists: [addList, setAddLists],
+            openAction: [openActions, setOpenActions],
+            editorHandler: [showEditor, setShowEditor],
+            selectedTask: [selectedTasks, setSelectedTasks]
         }
     }>{children}</GoogleKeepCloneContext.Provider>
 }

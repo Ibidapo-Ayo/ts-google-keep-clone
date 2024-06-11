@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Square } from 'lucide-react'
 
 type ListProps = {id: number; text: string; completed:boolean}

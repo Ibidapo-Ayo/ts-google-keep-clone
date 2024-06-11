@@ -6,7 +6,9 @@ export type AddNoteProps = {
     image: string,
     archive: boolean,
     selected: boolean,
-    collaborator: string[],
+    collaborator: {
+      email: string
+    }[],
     isAList: boolean,
     listValue: {
       id:  number,
@@ -16,8 +18,6 @@ export type AddNoteProps = {
 }
 
 export type AddListProps = {
-    isTyping: boolean,
-    setIsTyping: (typing: boolean) => void,
     listValue: string,
     setListValue: React.Dispatch<React.SetStateAction<{
       id: number;
