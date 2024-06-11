@@ -40,13 +40,13 @@ const AddTask = () => {
 
 
   useEffect(() => {
-    console.log(showEditor)
-    if (!showEditor && (task.title || task.collaborator.length >=1)) {
+    if (!showEditor && task.title || task.collaborator.length >= 1) {
       if (task.pinned) {
         setPinnedTasks((prev) => [...prev, task])
       } else {
         setShowTasks((prev) => [...prev, task])
       }
+
       setTask({
         id: showTasks.length + 1,
         title: "",
@@ -60,7 +60,6 @@ const AddTask = () => {
         listValue: []
       })
     }
-
   }, [showEditor])
 
 
@@ -76,8 +75,8 @@ const AddTask = () => {
 
   return (
     <div className="w-full flex flex-col my-10 space-y-3 shrink-0" id="add-task">
-      {openActions === ""? (
-          <div className="w-full shadow-secondary-border shadow-md rounded-md h-auto relative">
+      {openActions === "" ? (
+        <div className="w-full shadow-secondary-border shadow-md rounded-md h-auto relative">
           <div className="flex flex-row justify-between">
             {showEditor && !addList ? (
               <div className="flex flex-col w-full">
@@ -100,7 +99,7 @@ const AddTask = () => {
                   <div className="px-4">
                     <Input variant={"ghost"} className="border-none placeholder:text-black placeholder:tracking-tighter placeholder:text-[16px] resize-none outline-none w-full placeholder:font-normal text-[16px]" placeholder="Title" value={task.title} name="title" onChange={(e) => handleTitleChange(e)} />
                   </div>
-  
+
                   {listTasks.map((list, index) => {
                     return (
                       <div className="w-full" key={list.id}>
@@ -115,7 +114,7 @@ const AddTask = () => {
               ) : (
                 <div className="w-full grid grid-cols-[1fr,auto] gap-4 items-center px-4">
                   <input className="focus:border-none focus:outline-none py-2 border-none placeholder:text-black placeholder:tracking-tighter placeholder:text-[16px] resize-none outline-none w-full placeholder:font-normal text-[16px]" placeholder="Take a note..." onClick={showEditorHandler} onFocus={() => setShowEditor(true)} />
-  
+
                   <div className="flex items-center gap-4">
                     <Button variant="darker" size="icon2" onClick={() => {
                       setTask({ ...task, isAList: true })
@@ -131,15 +130,15 @@ const AddTask = () => {
                     </Button>
                   </div>
                 </div>
-  
+
               )
             )}
           </div>
         </div>
-      ):(
+      ) : (
         <AddCollaborator />
       )}
-    
+
     </div>
   )
 }
@@ -148,17 +147,16 @@ export default AddTask
 
 export const BottomActions = ({ setShowEditor, setAddLists, handleShowList, setListTask, collaborator }: any) => {
   return (
-    <div className="px-4">
-      <div className="flex space-x-3">
-        {collaborator.length !== 0 && (
-          collaborator.map((_col: any, i:number) => {
-            return (
-              <div className="w-10 h-10 border-2 border-white rounded-full" key={i}>
-                <img src="/images/profile/ibidapo-ayomide.jpg" className='w-full h-full rounded-full' />
-              </div>
-            )
-          })
-        )}
+    <>
+      <div className="flex space-x-3 px-4">
+        {collaborator.map((col:any) => {
+          return (
+            <div className="h-6 w-6 rounded-full" key={col.email}>
+              <img src="/images/profile/ibidapo-ayomide.jpg" className='w-full h-full rounded-full' />
+            </div>
+          )
+        })}
+
       </div>
       <div className="w-full flex justify-between items-center pb-2">
         <div className="flex space-x-3 items-center">
@@ -181,10 +179,10 @@ export const BottomActions = ({ setShowEditor, setAddLists, handleShowList, setL
               completed: false
             }])
           }}>
-            <p className="font-normal tracking-wide text-sm">Close</p>
+            <p className="font-medium tracking-wide text-lg">Close</p>
           </Button>
         </div>
       </div>
-    </div>
+    </>
   )
 }

@@ -40,7 +40,7 @@ const AddCollaborator = () => {
         setOpenActions("")
     }
     return (
-            <div className={`w-full shadow-secondary-border bg-white shadow-md rounded-md h-auto space-y-4`}>
+            <div className={` w-full shadow-secondary-border bg-white shadow-md rounded-md h-auto space-y-4 ${openActions !== "" ? "block mb-10": "hidden"}`}>
                 <div className="px-4 divide-y divide-secondary-hover space-y-3">
                     <h3 className="text-lg font-medium">Collobarators</h3>
                     <div className="py-4">

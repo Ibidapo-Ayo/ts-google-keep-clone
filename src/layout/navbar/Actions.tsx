@@ -21,7 +21,7 @@ const Actions = () => {
                     <FiGrid className="text-lg" />
                 </Button>
 
-                <div className='h-8 md:h-10 w-8 md:w-10 rounded-full cursor-pointer'>
+                <div className='h-10 md:h-12 w-10 md:w-12 rounded-full cursor-pointer'>
                     <img src="/images/profile/ibidapo-ayomide.jpg" className='w-full h-full rounded-full' />
                 </div>
 
