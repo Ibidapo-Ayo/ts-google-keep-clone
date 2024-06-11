@@ -35,7 +35,7 @@ function AddListKeep({listValue, setListValue, name, index, items, isActiveList,
           setIsTyping(true)
           if(index === items.length -1){
             setListValue((prev) => [...prev, {
-              id: items.length + 1,
+              id: items[items.length -1].id +1,
               text: "",
               completed: false
             }])
