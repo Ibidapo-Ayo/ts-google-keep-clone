@@ -36,7 +36,7 @@ export default function GoogleKeepProvider({ children }: GoogleKeepCloneContextP
         listValue: []
     })
 
-    const [showTasks, setShowTasks] = useState<AddNoteProps[]>(JSON.parse(localStorage.tasks) || [])
+    const [showTasks, setShowTasks] = useState<AddNoteProps[]>(JSON.parse(localStorage.tasks || []))
 
     const [expanded, setExpanded] = useState(true)
     const [addList, setAddLists] = useState(false)
