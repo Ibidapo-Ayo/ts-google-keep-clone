@@ -33,7 +33,6 @@ const AddTask = () => {
   const [isActiveList, setIsActiveList] = useState<number | undefined>()
 
   const [listTasks, setListTask] = useState([{
-    id: 1,
     text: "",
     completed: false
   }])
@@ -41,12 +40,7 @@ const AddTask = () => {
 
   useEffect(() => {
     if (!showEditor && task.title || task.collaborator.length >= 1) {
-      if (task.pinned) {
-        setPinnedTasks((prev) => [...prev, task])
-      } else {
-        setShowTasks((prev) => [...prev, task])
-      }
-
+      setShowTasks((prev) => [...prev, task])
       setTask({
         id: showTasks.length + 1,
         title: "",
@@ -61,6 +55,12 @@ const AddTask = () => {
       })
     }
   }, [showEditor])
+
+  useEffect(() => {
+    if (showTasks.length !== 0) {
+      localStorage.setItem("tasks", JSON.stringify(showTasks))
+    }
+  }, [showTasks])
 
 
   const showEditorHandler = () => {
@@ -102,9 +102,8 @@ const AddTask = () => {
 
                   {listTasks.map((list, index) => {
                     return (
-                      <div className="w-full" key={list.id}>
-                        <AddListKeep listValue={list.text} name={`${list.id}-${index}`}
-                          id={list.id}
+                      <div className="w-full" key={index}>
+                        <AddListKeep listValue={list.text} name={`${"List"}-${index}`}
                           index={index} setListValue={setListTask} items={listTasks} setIsActiveList={setIsActiveList} isActiveList={isActiveList} />
                       </div>
                     )
@@ -149,7 +148,7 @@ export const BottomActions = ({ setShowEditor, setAddLists, handleShowList, setL
   return (
     <>
       <div className="flex space-x-3 px-4">
-        {collaborator.map((col:any) => {
+        {collaborator.map((col: any) => {
           return (
             <div className="h-6 w-6 rounded-full" key={col.email}>
               <img src="/images/profile/ibidapo-ayomide.jpg" className='w-full h-full rounded-full' />
