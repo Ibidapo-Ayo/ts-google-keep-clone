@@ -10,7 +10,7 @@ import ShowList from "./components/ShowList"
 
 const ShowTasks = () => {
 
-    const { showTasks, setPinnedTasks, setShowTasks, selectedTask } = useContext(GoogleKeepCloneContext)
+    const { showTasks, setShowTasks, selectedTask } = useContext(GoogleKeepCloneContext)
 
     const [hoverOnElement, setHoverOnElement] = useState<number | undefined>(undefined)
 

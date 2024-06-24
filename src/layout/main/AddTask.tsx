@@ -11,7 +11,7 @@ import AddCollaborator from "./components/collaborator/AddCollaborator";
 
 
 const AddTask = () => {
-  const { tasks, setTasks, setShowTasks, setPinnedTasks, lists, showTasks, editorHandler, openAction } = useContext(GoogleKeepCloneContext)
+  const { tasks, setTasks, setShowTasks, lists, showTasks, editorHandler, openAction } = useContext(GoogleKeepCloneContext)
   const [addList, setAddLists] = lists
 
   const [openActions] = openAction

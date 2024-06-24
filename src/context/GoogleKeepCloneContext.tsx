@@ -9,9 +9,7 @@ type contextProps = {
     tasks: AddNoteProps,
     setTasks: React.Dispatch<React.SetStateAction<AddNoteProps>>,
     showTasks: AddNoteProps[],
-    setShowTasks: React.Dispatch<React.SetStateAction<AddNoteProps[]>>
-    pinnedTasks: AddNoteProps[],
-    setPinnedTasks: React.Dispatch<React.SetStateAction<AddNoteProps[]>>,
+    setShowTasks: React.Dispatch<React.SetStateAction<AddNoteProps[]>>,
     expanded: boolean,
     setExpanded: React.Dispatch<React.SetStateAction<boolean>>,
     lists: [boolean, React.Dispatch<React.SetStateAction<boolean>>]
@@ -38,8 +36,6 @@ export const GoogleKeepCloneContext = createContext<contextProps>({
     setTasks: () => { },
     showTasks: [],
     setShowTasks: () => [],
-    pinnedTasks: [],
-    setPinnedTasks: () => [],
     expanded: true,
     setExpanded: () => true,
     lists: [false, () => false],
@@ -64,7 +60,6 @@ export default function GoogleKeepProvider({ children }: GoogleKeepCloneContextP
     })
 
     const [showTasks, setShowTasks] = useState<AddNoteProps[]>(JSON.parse(localStorage.getItem("tasks")))
-    const [pinnedTasks, setPinnedTasks] = useState<AddNoteProps[]>([])
 
     const [expanded, setExpanded] = useState(true)
     const [addList, setAddLists] = useState(false)
@@ -76,7 +71,7 @@ export default function GoogleKeepProvider({ children }: GoogleKeepCloneContextP
 
     return <GoogleKeepCloneContext.Provider value={
         {
-            tasks, setTasks, showTasks, setShowTasks, pinnedTasks, setPinnedTasks, expanded, setExpanded,
+            tasks, setTasks, showTasks, setShowTasks, expanded, setExpanded,
             lists: [addList, setAddLists],
             openAction: [openActions, setOpenActions],
             editorHandler: [showEditor, setShowEditor],

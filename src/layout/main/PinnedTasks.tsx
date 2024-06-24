@@ -7,7 +7,7 @@ import IconButtons from '../../components/ui/IconButtons'
 import ShowList from './components/ShowList'
 
 const PinnedTasks = () => {
-  const { pinnedTasks, setShowTasks, setPinnedTasks, selectedTask, showTasks } = useContext(GoogleKeepCloneContext)
+  const { setShowTasks, selectedTask, showTasks } = useContext(GoogleKeepCloneContext)
   const [hoverOnElement, setHoverOnElement] = useState<number | undefined>(undefined)
 
 
