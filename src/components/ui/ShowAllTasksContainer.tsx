@@ -14,6 +14,13 @@ type ShowTasksProps = {
     updateTask: (id: number, isPinned: boolean) => void | undefined
 }
 
+export const highlightText = (text: string, highlight: string) => {
+    const parts = text.split(new RegExp(`(${highlight})`, 'gi'));
+    return parts.map((part, index) =>
+        part.toLowerCase() === highlight.toLowerCase() ? <span key={index} className="bg-amber-300">{part}</span> : part
+    );
+};
+
 const ShowAllTasksContainer = ({ task, index, updateTask }: ShowTasksProps) => {
 
     const { selectedTask, search } = useContext(GoogleKeepCloneContext)
@@ -27,12 +34,7 @@ const ShowAllTasksContainer = ({ task, index, updateTask }: ShowTasksProps) => {
         setHoverOnElement(index)
     }
 
-    const highlightText = (text: string, highlight: string) => {
-        const parts = text.split(new RegExp(`(${highlight})`, 'gi'));
-        return parts.map((part, index) =>
-            part.toLowerCase() === highlight.toLowerCase() ? <span key={index} className="bg-amber-300">{part}</span> : part
-        );
-    };
+    
 
     return (
         <>

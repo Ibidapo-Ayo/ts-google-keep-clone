@@ -29,7 +29,7 @@ const SearchPageContainer = () => {
     if (searchPrompt.trim()) {
       const result = showTasks.filter((task) => {
         return task.title.toLowerCase().includes(searchPrompt.toLowerCase()) ||
-          task.note.toLowerCase().includes(searchPrompt.toLowerCase())
+          task.note.toLowerCase().includes(searchPrompt.toLowerCase()) || task.listValue.some((item) => item.text.toLowerCase().includes(searchPrompt.toLowerCase()))
       })
       setSearchResult(result)
     }
