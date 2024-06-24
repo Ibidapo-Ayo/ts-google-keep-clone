@@ -1,13 +1,26 @@
 import { createContext, useState } from "react";
-import { AddNoteProps, contextProps } from "../props/AddTasksProps";
+import { AddNoteProps, contextProps, notesProps } from "../props/AddTasksProps";
 
 type GoogleKeepCloneContextProps = {
     children: React.ReactNode
 }
 
 
-
-export const GoogleKeepCloneContext = createContext<contextProps>(contextProps)
+export const GoogleKeepCloneContext = createContext<contextProps>({
+    tasks: notesProps,
+    setTasks: () => { },
+    showTasks: [],
+    setShowTasks: () => [],
+    expanded: true,
+    setExpanded: () => true,
+    lists: [false, () => false],
+    openAction: ["", ()=> ""],
+    editorHandler: [false, ()=> false],
+    selectedTask: [[], ()=> []],
+    open: ["", ()=> ""],
+    search: ["", ()=> ""],
+    isSearch: [false, () => false],
+})
 
 export default function GoogleKeepProvider({ children }: GoogleKeepCloneContextProps) {
     const [tasks, setTasks] = useState<AddNoteProps>({

@@ -60,7 +60,7 @@ function AddListKeep({listValue, setListValue, name, index, items, isActiveList,
            }
 
            if (items.length > 1) {
-            const deleteItem = items.filter((item, i) => i !== index)
+            const deleteItem = items.filter((_item, i) => i !== index)
             setListValue(deleteItem)
           }
           }}>

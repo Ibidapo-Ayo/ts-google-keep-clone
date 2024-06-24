@@ -45,22 +45,6 @@ export type AddListProps = {
     listValue: [],
 }
 
-  export const contextProps = {
-    tasks: notesProps,
-    setTasks: () => { },
-    showTasks: [],
-    setShowTasks: () => [],
-    expanded: true,
-    setExpanded: () => true,
-    lists: [false, () => false],
-    openAction: ["", ()=> ""],
-    editorHandler: [false, ()=> false],
-    selectedTask: [[], ()=> []],
-    open: ["", ()=> ""],
-    search: ["", ()=> ""],
-    isSearch: [false, () => false],
-  }
-
   export type contextProps = {
     tasks: AddNoteProps,
     setTasks: React.Dispatch<React.SetStateAction<AddNoteProps>>,
