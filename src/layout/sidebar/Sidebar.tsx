@@ -10,27 +10,27 @@ const Sidebar = () => {
     const sideBarItems = [
         {
             text: "Notes",
-            icon: <FaRegLightbulb className={`${!expanded && "ml-1 "} text-2xl`}/>
+            icon: <FaRegLightbulb className={`${!expanded && "ml-1 "} text-xl`}/>
         },
         {
             text: "Reminder",
-            icon: <FiBell className={`${!expanded && "ml-1 "} text-2xl`}/>
+            icon: <FiBell className={`${!expanded && "ml-1 "} text-xl`}/>
         },
         {
             text: "Label",
-            icon: <FiHexagon className={`${!expanded && "ml-1 "} text-2xl`}/>
+            icon: <FiHexagon className={`${!expanded && "ml-1 "} text-xl`}/>
         },
         {
             text: "Edit",
-            icon: <FiEdit2 className={`${!expanded && "ml-1 "} text-2xl`}/>
+            icon: <FiEdit2 className={`${!expanded && "ml-1 "} text-xl`}/>
         },
         {
             text: "Archive",
-            icon: <BiArchiveIn className={`${!expanded && "ml-1 "} text-2xl`}/>
+            icon: <BiArchiveIn className={`${!expanded && "ml-1 "} text-xl`}/>
         },
         {
             text: "Bin",
-            icon: <FiTrash2 className={`${!expanded && "ml-1 "} text-2xl`}/>
+            icon: <FiTrash2 className={`${!expanded && "ml-1 "} text-xl`}/>
         }
     ]
 
@@ -51,7 +51,7 @@ const Sidebar = () => {
                                 <div className={``}>
                                     {icon}
                                 </div>
-                                <span className={`font-medium tracking-wide text-md overflow-hidden transition-all ${expanded ? "w-60" : "w-0 "}`}>{text}</span>
+                                <span className={`font-medium tracking-wide text-sm overflow-hidden transition-all ${expanded ? "w-60" : "w-0 "}`}>{text}</span>
                             </li>
                         )
                     })}

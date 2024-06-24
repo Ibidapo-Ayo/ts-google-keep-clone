@@ -17,7 +17,8 @@ type contextProps = {
     lists: [boolean, React.Dispatch<React.SetStateAction<boolean>>]
     openAction: [string, React.Dispatch<React.SetStateAction<string>>],
     editorHandler: [boolean, React.Dispatch<React.SetStateAction<boolean>>],
-    selectedTask: [number[], React.Dispatch<React.SetStateAction<number[]>>]
+    selectedTask: [number[], React.Dispatch<React.SetStateAction<number[]>>],
+    open: [string, React.Dispatch<React.SetStateAction<string>>]
 }
 const notesProps = {
     id: 0,
@@ -44,7 +45,8 @@ export const GoogleKeepCloneContext = createContext<contextProps>({
     lists: [false, () => false],
     openAction: ["", ()=> ""],
     editorHandler: [false, ()=> false],
-    selectedTask: [[], ()=> []]
+    selectedTask: [[], ()=> []],
+    open: ["", ()=> ""]
 })
 
 export default function GoogleKeepProvider({ children }: GoogleKeepCloneContextProps) {
@@ -70,6 +72,7 @@ export default function GoogleKeepProvider({ children }: GoogleKeepCloneContextP
 
     const [showEditor, setShowEditor] = useState<boolean>(false)
     const [selectedTasks, setSelectedTasks] = useState<number[]>([])
+    const [openPage, setOpenPage] = useState("addPage")
 
     return <GoogleKeepCloneContext.Provider value={
         {
@@ -77,7 +80,8 @@ export default function GoogleKeepProvider({ children }: GoogleKeepCloneContextP
             lists: [addList, setAddLists],
             openAction: [openActions, setOpenActions],
             editorHandler: [showEditor, setShowEditor],
-            selectedTask: [selectedTasks, setSelectedTasks]
+            selectedTask: [selectedTasks, setSelectedTasks],
+            open: [openPage, setOpenPage]
         }
     }>{children}</GoogleKeepCloneContext.Provider>
 }

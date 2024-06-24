@@ -1,12 +1,15 @@
 import { FiArrowLeft, FiSearch, FiX } from "react-icons/fi"
-import { useState } from "react"
+import { useContext, useState } from "react"
 import { useBodyClick } from "../../hooks/useBodyClick"
 import Button from "../../components/Button"
 import Input from "../../components/Input"
+import { GoogleKeepCloneContext } from "../../context/GoogleKeepCloneContext"
 
 const SearchBar = () => {
   const [bg, setBg] = useState<boolean>(false)
   const [mobileSearch, setMobileSearch] = useState<boolean>(false)
+  const {open} = useContext(GoogleKeepCloneContext)
+   const [openPage, setOpenPage] = open
 
   useBodyClick(setBg, "search-box")
   return (
@@ -18,12 +21,16 @@ const SearchBar = () => {
               <FiSearch className="text-xl" />
             </Button>
           </div>
-          <div className="w-full" onClick={() => setBg(true)}>
+          <div className="w-full" onClick={() => {
+            setOpenPage("searchPage")
+            setBg(true)}}>
             <Input type="text" placeholder="Search" variant="ghost" style="searchInput" />
           </div>
-          {bg && (
+          {openPage === "searchPage" && (
             <div>
-              <Button variant="ghost" size="icon2" onClick={() => setBg(false)}>
+              <Button variant="ghost" size="icon2" onClick={() =>{
+                setOpenPage("addPage")
+                setBg(false)}}>
                 <FiX className="text-xl" />
               </Button>
             </div>

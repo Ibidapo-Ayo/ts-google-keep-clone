@@ -4,7 +4,7 @@ import { GoogleKeepCloneContext } from "../../context/GoogleKeepCloneContext"
 import { FiCheck } from "react-icons/fi"
 import Button from "../../components/Button"
 import { PinIcon } from "lucide-react"
-import IconButtons from "../../components/IconButtons"
+import IconButtons from "../../components/ui/IconButtons"
 import ShowList from "./components/ShowList"
 
 
@@ -36,7 +36,7 @@ const ShowTasks = () => {
                 ) : (
                     showTasks.sort((a, b) => b.id - a.id).map((task, index) => {
                         return (
-                            <div className={`relative px-2 py-1 pb-4 rounded-md min-h-[60px] w-64 border hover:border-[2px]  space-y-3 hover:shadow-md hover:transition flex flex-col justify-between ${selectedTasks.some((id)=> task.id === id) ? "border-secondary-dark border-[2px]":"border-gray-300"}`} key={`${index}-GoogleKeepId`} onMouseEnter={() => handleHoverElements(index)} onMouseLeave={() => {
+                            <div className={`relative px-2 py-1 pb-4 rounded-md min-h-[60px] w-64 border hover:border-2 hover:border-black  space-y-3 hover:shadow-md hover:transition flex flex-col justify-between ${selectedTasks.some((id)=> task.id === id) ? "border-secondary-dark border-[2px]":""}`} key={`${index}-GoogleKeepId`} onMouseEnter={() => handleHoverElements(index)} onMouseLeave={() => {
                                 setHoverOnElement(undefined)
                             }} 
                             >

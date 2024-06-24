@@ -4,7 +4,7 @@ import { GoogleKeepCloneContext } from "../../context/GoogleKeepCloneContext";
 // import { useBodyClick } from "../../hooks/useBodyClick";
 import Button from "../../components/Button";
 import { BrushIcon, Image, PinIcon, Redo2, SquareCheck, Undo2, } from "lucide-react";
-import IconButtons from "../../components/IconButtons";
+import IconButtons from "../../components/ui/IconButtons";
 import AddListKeep from "./components/AddListKeep";
 import Input from "../../components/Input";
 import AddCollaborator from "./components/collaborator/AddCollaborator";

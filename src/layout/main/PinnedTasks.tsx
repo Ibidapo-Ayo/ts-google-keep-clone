@@ -3,7 +3,7 @@ import { GoogleKeepCloneContext } from '../../context/GoogleKeepCloneContext'
 import { FiCheck } from 'react-icons/fi'
 import Button from '../../components/Button'
 import { PinIcon } from 'lucide-react'
-import IconButtons from '../../components/IconButtons'
+import IconButtons from '../../components/ui/IconButtons'
 import ShowList from './components/ShowList'
 
 const PinnedTasks = () => {
@@ -29,7 +29,7 @@ const PinnedTasks = () => {
       <h6 className="uppercase tracking-wide text-sm font-semibold text-left">Pinned</h6>
       <div className='grid grid-cols-[repeat(auto-fill,minmax(250px,1fr))]'>
         {pinnedTasks.length > 0 ? pinnedTasks.map((pinned, index) => (
-          <div className={`relative px-2 py-1 pb-4 rounded-md min-h-[60px] w-64 border hover:border-[2px]  space-y-3 hover:shadow-md hover:transition flex flex-col justify-between ${selectedTasks.some((id) => pinned.id === id) ? "border-secondary-dark border-[2px]" : "border-gray-300"}`} key={`${index}-GoogleKeepId`} onMouseEnter={() => handleHoverElements(index)} onMouseLeave={() => {
+          <div className={`relative px-2 py-1 pb-4 rounded-md min-h-[60px] w-64  hover:border-2 hover:border-black  space-y-3 hover:shadow-md hover:transition flex flex-col justify-between ${selectedTasks.some((id) => pinned.id === id) ? "border-secondary-dark border-[2px]" : "border-gray-300"}`} key={`${index}-GoogleKeepId`} onMouseEnter={() => handleHoverElements(index)} onMouseLeave={() => {
             setHoverOnElement(undefined)
           }}>
             <div className="space-y-3">
@@ -54,7 +54,7 @@ const PinnedTasks = () => {
               </div>
               <div className="h-7">
                 {hoverOnElement === index && (
-                  <Button variant="ghost" size="icon3" className={`${hoverOnElement === index ? "block" : "hidden"} grid items-center justify-center`} onClick={() => removePinned(pinned.id)}>
+                  <Button variant="focus" size="icon3" className={`${hoverOnElement === index ? "block" : "hidden"} grid items-center justify-center`} onClick={() => removePinned(pinned.id)}>
                     <PinIcon className="w-4" />
                   </Button>
 
