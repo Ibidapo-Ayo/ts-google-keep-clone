@@ -8,8 +8,10 @@ import { GoogleKeepCloneContext } from "../../context/GoogleKeepCloneContext"
 const SearchBar = () => {
   const [bg, setBg] = useState<boolean>(false)
   const [mobileSearch, setMobileSearch] = useState<boolean>(false)
-  const {open} = useContext(GoogleKeepCloneContext)
+  const {open, search, isSearch} = useContext(GoogleKeepCloneContext)
    const [openPage, setOpenPage] = open
+   const [searchPrompt, setSearchPrompt] = search
+   const [_, setIsSearching] = isSearch
 
   useBodyClick(setBg, "search-box")
   return (
@@ -24,13 +26,18 @@ const SearchBar = () => {
           <div className="w-full" onClick={() => {
             setOpenPage("searchPage")
             setBg(true)}}>
-            <Input type="text" placeholder="Search" variant="ghost" style="searchInput" />
+            <Input type="text" placeholder="Search" variant="ghost" style="searchInput" value={searchPrompt} onChange={(e)=> {
+              setIsSearching(true)
+              setSearchPrompt(e.target.value)}}
+            />
           </div>
           {openPage === "searchPage" && (
             <div>
               <Button variant="ghost" size="icon2" onClick={() =>{
                 setOpenPage("addPage")
-                setBg(false)}}>
+                setBg(false)
+                setSearchPrompt("")
+                }}>
                 <FiX className="text-xl" />
               </Button>
             </div>

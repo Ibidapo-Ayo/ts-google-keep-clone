@@ -1,49 +1,13 @@
 import { createContext, useState } from "react";
-import { AddNoteProps } from "../props/AddTasksProps";
+import { AddNoteProps, contextProps } from "../props/AddTasksProps";
 
 type GoogleKeepCloneContextProps = {
     children: React.ReactNode
 }
 
-type contextProps = {
-    tasks: AddNoteProps,
-    setTasks: React.Dispatch<React.SetStateAction<AddNoteProps>>,
-    showTasks: AddNoteProps[],
-    setShowTasks: React.Dispatch<React.SetStateAction<AddNoteProps[]>>,
-    expanded: boolean,
-    setExpanded: React.Dispatch<React.SetStateAction<boolean>>,
-    lists: [boolean, React.Dispatch<React.SetStateAction<boolean>>]
-    openAction: [string, React.Dispatch<React.SetStateAction<string>>],
-    editorHandler: [boolean, React.Dispatch<React.SetStateAction<boolean>>],
-    selectedTask: [number[], React.Dispatch<React.SetStateAction<number[]>>],
-    open: [string, React.Dispatch<React.SetStateAction<string>>]
-}
-const notesProps = {
-    id: 0,
-    title: "",
-    note: "",
-    pinned: false,
-    collaborator: [],
-    image: "",
-    selected: false,
-    archive: false,
-    isAList: false,
-    listValue: [],
-}
 
-export const GoogleKeepCloneContext = createContext<contextProps>({
-    tasks: notesProps,
-    setTasks: () => { },
-    showTasks: [],
-    setShowTasks: () => [],
-    expanded: true,
-    setExpanded: () => true,
-    lists: [false, () => false],
-    openAction: ["", ()=> ""],
-    editorHandler: [false, ()=> false],
-    selectedTask: [[], ()=> []],
-    open: ["", ()=> ""]
-})
+
+export const GoogleKeepCloneContext = createContext<contextProps>(contextProps)
 
 export default function GoogleKeepProvider({ children }: GoogleKeepCloneContextProps) {
     const [tasks, setTasks] = useState<AddNoteProps>({
@@ -69,6 +33,9 @@ export default function GoogleKeepProvider({ children }: GoogleKeepCloneContextP
     const [selectedTasks, setSelectedTasks] = useState<number[]>([])
     const [openPage, setOpenPage] = useState("addPage")
 
+    const [searchPrompt, setSearchPrompt] = useState("")
+    const [isSearching, setIsSearching] = useState(false)
+
     return <GoogleKeepCloneContext.Provider value={
         {
             tasks, setTasks, showTasks, setShowTasks, expanded, setExpanded,
@@ -76,7 +43,9 @@ export default function GoogleKeepProvider({ children }: GoogleKeepCloneContextP
             openAction: [openActions, setOpenActions],
             editorHandler: [showEditor, setShowEditor],
             selectedTask: [selectedTasks, setSelectedTasks],
-            open: [openPage, setOpenPage]
+            open: [openPage, setOpenPage],
+            search: [searchPrompt, setSearchPrompt],
+            isSearch: [isSearching, setIsSearching]
         }
     }>{children}</GoogleKeepCloneContext.Provider>
 }
