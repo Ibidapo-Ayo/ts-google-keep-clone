@@ -1,50 +1,25 @@
 import { createContext, useState } from "react";
-import { AddNoteProps } from "../props/AddTasksProps";
+import { AddNoteProps, contextProps, notesProps } from "../props/AddTasksProps";
 
 type GoogleKeepCloneContextProps = {
     children: React.ReactNode
 }
 
-type contextProps = {
-    tasks: AddNoteProps,
-    setTasks: React.Dispatch<React.SetStateAction<AddNoteProps>>,
-    showTasks: AddNoteProps[],
-    setShowTasks: React.Dispatch<React.SetStateAction<AddNoteProps[]>>
-    pinnedTasks: AddNoteProps[],
-    setPinnedTasks: React.Dispatch<React.SetStateAction<AddNoteProps[]>>,
-    expanded: boolean,
-    setExpanded: React.Dispatch<React.SetStateAction<boolean>>,
-    lists: [boolean, React.Dispatch<React.SetStateAction<boolean>>]
-    openAction: [string, React.Dispatch<React.SetStateAction<string>>],
-    editorHandler: [boolean, React.Dispatch<React.SetStateAction<boolean>>],
-    selectedTask: [number[], React.Dispatch<React.SetStateAction<number[]>>]
-}
-const notesProps = {
-    id: 0,
-    title: "",
-    note: "",
-    pinned: false,
-    collaborator: [],
-    image: "",
-    selected: false,
-    archive: false,
-    isAList: false,
-    listValue: [],
-}
 
 export const GoogleKeepCloneContext = createContext<contextProps>({
     tasks: notesProps,
     setTasks: () => { },
     showTasks: [],
     setShowTasks: () => [],
-    pinnedTasks: [],
-    setPinnedTasks: () => [],
     expanded: true,
     setExpanded: () => true,
     lists: [false, () => false],
     openAction: ["", ()=> ""],
     editorHandler: [false, ()=> false],
-    selectedTask: [[], ()=> []]
+    selectedTask: [[], ()=> []],
+    open: ["", ()=> ""],
+    search: ["", ()=> ""],
+    isSearch: [false, () => false],
 })
 
 export default function GoogleKeepProvider({ children }: GoogleKeepCloneContextProps) {
@@ -61,8 +36,7 @@ export default function GoogleKeepProvider({ children }: GoogleKeepCloneContextP
         listValue: []
     })
 
-    const [showTasks, setShowTasks] = useState<AddNoteProps[]>([])
-    const [pinnedTasks, setPinnedTasks] = useState<AddNoteProps[]>([])
+    const [showTasks, setShowTasks] = useState<AddNoteProps[]>(JSON.parse(localStorage.tasks))
 
     const [expanded, setExpanded] = useState(true)
     const [addList, setAddLists] = useState(false)
@@ -70,14 +44,21 @@ export default function GoogleKeepProvider({ children }: GoogleKeepCloneContextP
 
     const [showEditor, setShowEditor] = useState<boolean>(false)
     const [selectedTasks, setSelectedTasks] = useState<number[]>([])
+    const [openPage, setOpenPage] = useState("addPage")
+
+    const [searchPrompt, setSearchPrompt] = useState("")
+    const [isSearching, setIsSearching] = useState(false)
 
     return <GoogleKeepCloneContext.Provider value={
         {
-            tasks, setTasks, showTasks, setShowTasks, pinnedTasks, setPinnedTasks, expanded, setExpanded,
+            tasks, setTasks, showTasks, setShowTasks, expanded, setExpanded,
             lists: [addList, setAddLists],
             openAction: [openActions, setOpenActions],
             editorHandler: [showEditor, setShowEditor],
-            selectedTask: [selectedTasks, setSelectedTasks]
+            selectedTask: [selectedTasks, setSelectedTasks],
+            open: [openPage, setOpenPage],
+            search: [searchPrompt, setSearchPrompt],
+            isSearch: [isSearching, setIsSearching]
         }
     }>{children}</GoogleKeepCloneContext.Provider>
 }

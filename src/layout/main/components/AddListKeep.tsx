@@ -5,7 +5,7 @@ import { AddListProps } from '../../../props/AddTasksProps'
 import { useState } from 'react'
 
 
-function AddListKeep({listValue, setListValue, name, index, items, isActiveList, setIsActiveList, id }: AddListProps) {
+function AddListKeep({listValue, setListValue, name, index, items, isActiveList, setIsActiveList}: AddListProps) {
   const [, setIsTyping] = useState<boolean>(false)
   
   return (
@@ -35,7 +35,6 @@ function AddListKeep({listValue, setListValue, name, index, items, isActiveList,
           setIsTyping(true)
           if(index === items.length -1){
             setListValue((prev) => [...prev, {
-              id: items[items.length -1].id,
               text: "",
               completed: false
             }])
@@ -54,7 +53,6 @@ function AddListKeep({listValue, setListValue, name, index, items, isActiveList,
           <Button variant="ghost" size="icon3" className='p-1 w-7 h-7' onClick={() => {
            if(items.length <= 1){
             setListValue([{
-              id: 0,
               text: "",
               completed: false
             }])
@@ -62,7 +60,7 @@ function AddListKeep({listValue, setListValue, name, index, items, isActiveList,
            }
 
            if (items.length > 1) {
-            const deleteItem = items.filter((item) => item.id !== id)
+            const deleteItem = items.filter((_item, i) => i !== index)
             setListValue(deleteItem)
           }
           }}>
