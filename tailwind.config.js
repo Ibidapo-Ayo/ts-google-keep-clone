@@ -1,7 +1,7 @@
 import colors from "tailwindcss/colors"
 /** @type {import('tailwindcss').Config} */
 export default {
-  content: ["./src/**/*.{html,ts,tsx}"],
+  content: ["./index.html", "./src/**/*.{ts,tsx,js,jsx}"],
   theme: {
     extend: {
       colors: {

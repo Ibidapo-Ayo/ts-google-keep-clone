@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import { GoogleKeepCloneContext } from "../../../../context/GoogleKeepCloneContext";
 import { AddNoteProps } from "../../../../props/AddTasksProps";
-import ShowAllTasksContainer from "../../../../components/ui/ShowAllTasksContainer";
+import ShowAllTasksContainer from "../../../../components/ShowAllTasksContainer";
 
 const SearchPageContainer = () => {
   const { search, isSearch, showTasks, setShowTasks } = useContext(GoogleKeepCloneContext)

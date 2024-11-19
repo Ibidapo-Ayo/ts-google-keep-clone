@@ -2,7 +2,7 @@
 import { Square } from 'lucide-react'
 import { useContext } from 'react';
 import { GoogleKeepCloneContext } from '../../../context/GoogleKeepCloneContext';
-import { highlightText } from '../../../components/ui/ShowAllTasksContainer';
+import { highlightText } from '../../../components/ShowAllTasksContainer';
 
 type ListProps = {id: number; text: string; completed:boolean}
 

@@ -60,4 +60,10 @@ export type AddListProps = {
     search: [string, React.Dispatch<React.SetStateAction<string>>],
     isSearch: [boolean, React.Dispatch<React.SetStateAction<boolean>>]
 }
+
+export type ShowTasksProps = {
+  task: AddNoteProps,
+  index: number,
+  updateTask: (id: number, isPinned: boolean) => void | undefined
+}
   

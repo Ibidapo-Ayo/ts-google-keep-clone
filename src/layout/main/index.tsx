@@ -1,8 +1,8 @@
 import { useContext } from "react";
-import ShowTasksContainer from "../../components/ui/ShowTasksContainer"
 import AddTask from "./AddTask"
 import { GoogleKeepCloneContext } from "../../context/GoogleKeepCloneContext";
 import SearchPageContainer from "./components/search/index"
+import ShowTasksContainer from "@/components/ShowTasksContainer";
 
 const Layout = () => {
   const { open } = useContext(GoogleKeepCloneContext);

@@ -1,18 +1,13 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { useContext, useState } from "react"
-import { GoogleKeepCloneContext } from "../../context/GoogleKeepCloneContext"
+import { GoogleKeepCloneContext } from "../context/GoogleKeepCloneContext"
 import { FiCheck } from "react-icons/fi"
-import Button from "../Button"
+import Button from "./Button"
 import { PinIcon } from "lucide-react"
 import IconButtons from "./IconButtons"
-import ShowList from "../../layout/main/components/ShowList"
-import { AddNoteProps } from "../../props/AddTasksProps"
+import ShowList from "../layout/main/components/ShowList"
+import { ShowTasksProps } from "../props/AddTasksProps"
 
-type ShowTasksProps = {
-    task: AddNoteProps,
-    index: number,
-    updateTask: (id: number, isPinned: boolean) => void | undefined
-}
 
 export const highlightText = (text: string, highlight: string) => {
     const parts = text.split(new RegExp(`(${highlight})`, 'gi'));
@@ -37,8 +32,8 @@ const ShowAllTasksContainer = ({ task, index, updateTask }: ShowTasksProps) => {
     
 
     return (
-        <>
-            <div className={`relative px-2 py-1 pb-4 rounded-md min-h-[60px] w-64 border hover:border-2 hover:border-black  space-y-3 hover:shadow-md hover:transition flex flex-col justify-between ${selectedTasks.some((id) => task.id === id) ? "border-secondary-dark border-[2px]" : ""}`} key={`${index}-GoogleKeepId`} onMouseEnter={() => handleHoverElements(index)} onMouseLeave={() => {
+        <div className="inline-grid grid-equals ml-3">
+            <div className={`relative px-2 py-1 pb-4 rounded-md w-64 border hover:border hover:border-gray-300  space-y-3 hover:shadow-xl hover:transition flex flex-col justify-between ${selectedTasks.some((id) => task.id === id) ? "border-secondary-dark border-[2px]" : ""}`} key={`${index}-GoogleKeepId`} onMouseEnter={() => handleHoverElements(index)} onMouseLeave={() => {
                 setHoverOnElement(undefined)
             }}
             >
@@ -54,7 +49,7 @@ const ShowAllTasksContainer = ({ task, index, updateTask }: ShowTasksProps) => {
                             setSelectedTasks((prev) => [...prev, task.id])
                         }}
                     >
-                        <FiCheck className="text-white text-md font-bold " />
+                        <FiCheck className="text-white text-md font-bold w-4 " />
                     </div>
 
                     <div className="w-60 grid grid-cols-[1fr,35px] items-center">
@@ -95,7 +90,7 @@ const ShowAllTasksContainer = ({ task, index, updateTask }: ShowTasksProps) => {
                     )}
                 </div>
             </div>
-        </>
+        </div>
     )
 
 }

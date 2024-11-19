@@ -9,8 +9,8 @@ export const buttonStyles = cva(["transition-colors"], {
             ghost: ["hover:bg-gray-100"],
             darker: ["hover:bg-gray-200"],
             focus: [
-                "bg-gray-200",
-                "hover:bg-gray-200"
+                "bg-gray-100",
+                "hover:bg-gray-100"
             ],
         },
         size: {

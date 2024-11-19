@@ -1,6 +1,6 @@
 import { useContext } from 'react'
 import { GoogleKeepCloneContext } from '../../context/GoogleKeepCloneContext'
-import ShowAllTasksContainer from '../../components/ui/ShowAllTasksContainer'
+import ShowAllTasksContainer from '../../components/ShowAllTasksContainer'
 
 const PinnedTasks = () => {
   const { setShowTasks, showTasks } = useContext(GoogleKeepCloneContext)
@@ -18,7 +18,7 @@ const PinnedTasks = () => {
   return (
     <div>
       <h6 className="uppercase tracking-wide text-sm font-semibold text-left">Pinned</h6>
-      <div className='grid grid-cols-[repeat(auto-fill,minmax(250px,1fr))]'>
+      <div className='inline'>
         {showTasks.filter((tasks) => tasks.pinned).length > 0 ? showTasks.filter((tasks) => tasks.pinned).map((pinned, index) => (
           <ShowAllTasksContainer task={pinned} index={index} key={index} updateTask={updateTask} />
         )) : (
